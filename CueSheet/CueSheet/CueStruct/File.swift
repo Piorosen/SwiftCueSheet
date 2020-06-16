@@ -1,5 +1,5 @@
 //
-//  CueSheet.swift
+//  File.swift
 //  CueSheet
 //
 //  Created by Aoikazto on 2020/06/07.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-
-open class CueSheet {
-    
+struct File {
+    public private(set) var tracks:[Track]
+    var fileName:String
+    var fileType:String
 }

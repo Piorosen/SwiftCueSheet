@@ -11,20 +11,26 @@ import XCTest
 
 class CueSheetTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUp() {
+        super.setUp()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        super.tearDown()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testExistCheck1() {
+        let p = Bundle(for: type(of: self)).path(forResource: "test1", ofType: "cue")
+        let result = CueSheetParser().Load(path: p)
+        XCTAssertNotNil(result, "파일이 있는데 없다고 합니다.")
+    }
+    func testExistCheck2() {
+        let p = Bundle(for: type(of: self)).path(forResource: "test2", ofType: "cue")
+        let result = CueSheetParser().Load(path: "test2.cue")
+        XCTAssertNil(result, "파일이 없는데 존재 합니다.")
     }
 
-    func testPerformanceExample() throws {
+    func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.

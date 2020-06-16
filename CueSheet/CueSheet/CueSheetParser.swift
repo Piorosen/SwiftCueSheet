@@ -1,0 +1,182 @@
+//
+//  CueSheet.swift
+//  CueSheet
+//
+//  Created by Aoikazto on 2020/06/07.
+//  Copyright © 2020 Aoikazto. All rights reserved.
+//
+
+import Foundation
+
+
+
+
+
+open class CueSheetParser {
+    init() {
+    }
+    
+    private func remParser(data:[String]) -> [Rem] {
+        var result = [Rem]()
+        
+        for item in data {
+            let sp = item.split(separator: " ")
+            
+            let key = sp[1]
+            let value = sp[2]
+            
+            result.append(Rem(name: String(key), value: String(value)))
+        }
+        
+        return result
+    }
+    
+    private func metaParser(data:[String]) -> (title:String, performer:String, songWriter:String) {
+        var dicResult = [String:String]()
+        
+        for item in data {
+            let splited = item.split(separator: " ")
+            
+            dicResult[String(splited[0].uppercased())] = String(splited[1])
+                                                            .trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+        }
+        
+        return (dicResult["TITLE"] ?? "", dicResult["PERFORMER"] ?? "", dicResult["SONGWRITER"] ?? "")
+    }
+    
+    private func trackParser(data:[String]) -> Track {
+        let trackInfo = data[0].split(separator: " ")
+        let fileIndex = Int(trackInfo[1])!
+        let fileType = String(trackInfo[2])
+        
+        var dicResult = [String:String]()
+        
+        var soundIndex = [Index]()
+        
+        for index in 1 ..< data.count {
+            let sp = data[index].split(separator: " ")
+            
+            let command = String(sp[0]).uppercased()
+            
+            if command == "INDEX" {
+                let indexNum = Int(sp[1])!
+                let indexTime = IndexTime(time: String(sp[2]))
+                soundIndex.append(Index(num: UInt8(indexNum), time: indexTime!))
+                
+                continue
+            }
+            
+            dicResult[command] = String(data[index][command.endIndex...])
+                                        .trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+        }
+        
+        
+        
+        return Track(performer: dicResult["PERFORMER"] ?? "", songWriter: dicResult["SONGWRITER"] ?? "", title: dicResult["TITLE"] ?? "", trackNum: fileIndex, trackType: fileType, index: soundIndex)
+    }
+    
+    private func fileParser(file:String, track:[[String]]) -> File {
+        let fileInfo = file.split(separator: " ")
+        
+        let fileType = String(fileInfo[fileInfo.count - 1])
+        let fileName = String(file.split(separator: "\"")[1])
+        
+        var trackList = [Track]()
+        
+        for item in track {
+            trackList.append(trackParser(data: item))
+        }
+        
+        return File(tracks: trackList, fileName: fileName, fileType: fileType)
+    }
+    
+    
+    
+    // cue -> file
+    private func split(data: [String]) -> (rem:[String], meta:[String], file:String, track:[[String]])? {
+        var remList = [String]()
+        var metaList = [String]()
+        var file = String()
+        var trackList = [[String]]()
+        
+        var findFile = false
+        
+        var trackBuffer:[String]? = nil
+        for item in data {
+            let lineInfo = item.split(separator: " ")
+            let command = String(lineInfo[0].uppercased())
+            
+            // 최초 REM 데이터 탐색
+            if (command == "REM") {
+                remList.append(item)
+            }
+            // meta 데이터 탐색
+            else if (findFile == false && command != "FILE" && command != "REM"){
+                metaList.append(item)
+            }
+            // FILE 명령 찾음.
+            else if (command == "FILE"){
+//                file = String(item.split(separator: "\"")[1])
+//                fileType = String(lineInfo[lineInfo.count - 1])
+                file = item
+//                fileType = String(lineInfo[lineInfo.count - 1])
+                findFile = true
+            }
+            // Track 탐색.
+            else if (findFile == true && command == "TRACK"){
+                if (trackBuffer != nil){
+                    trackList.append(trackBuffer!)
+                }
+                trackBuffer = [String]()
+                trackBuffer?.append(item)
+            }else {
+                trackBuffer?.append(item)
+            }
+        }
+        
+        return (remList, metaList, file, trackList)
+    }
+    
+    
+    open func Load(path:String?, encoding:String.Encoding = .utf8) -> CueSheet? {
+        if let filePath = path {
+            guard let read = read(filePath, encoding) else {
+                return nil
+            }
+            
+            if let splited = split(data: read) {
+                let m = metaParser(data: splited.meta)
+                let r = remParser(data: splited.rem)
+                let f = fileParser(file: splited.file, track: splited.track)
+                
+                return CueSheet(title: m.title, performer: m.performer, rem: r, file: f)
+            }
+        }
+        
+        return nil
+    }
+    
+    
+    
+    private func read(_ path:String, _ encoding:String.Encoding = .utf8) -> [String]? {
+        guard let readData = try? String(contentsOfFile: path, encoding: encoding) else {
+            return nil
+        }
+        
+        if readData.count == 0 {
+            return nil
+        }
+        
+        var result = [String]()
+        let s = readData.split(separator: "\n")
+        
+        for i in s.indices {
+            let removedLine = String(s[i].trimmingCharacters(in: .whitespacesAndNewlines))
+            if !removedLine.isEmpty {
+                result.append(removedLine)
+            }
+        }
+        
+        return result
+    }
+}

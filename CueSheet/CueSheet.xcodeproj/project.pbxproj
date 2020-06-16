@@ -10,7 +10,13 @@
 		62ADBDC9248CD399004A898C /* CueSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ADBDBF248CD399004A898C /* CueSheet.framework */; };
 		62ADBDCE248CD399004A898C /* CueSheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDCD248CD399004A898C /* CueSheetTests.swift */; };
 		62ADBDD0248CD399004A898C /* CueSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ADBDC2248CD399004A898C /* CueSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		62ADBDDA248CD3A6004A898C /* CueSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDD9248CD3A6004A898C /* CueSheet.swift */; };
+		62ADBDDA248CD3A6004A898C /* CueSheetParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDD9248CD3A6004A898C /* CueSheetParser.swift */; };
+		62ADBDDD248CE719004A898C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDDC248CE719004A898C /* Track.swift */; };
+		62ADBDDF248CE722004A898C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDDE248CE722004A898C /* File.swift */; };
+		62ADBDE1248CE73A004A898C /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDE0248CE73A004A898C /* Index.swift */; };
+		62B060EE24986566009B8A00 /* test1.cue in Resources */ = {isa = PBXBuildFile; fileRef = 62B060ED24986566009B8A00 /* test1.cue */; };
+		62C70DA224975CB0005A57FC /* Rem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C70DA124975CB0005A57FC /* Rem.swift */; };
+		62C70DA424975CD1005A57FC /* CueSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C70DA324975CD1005A57FC /* CueSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +36,13 @@
 		62ADBDC8248CD399004A898C /* CueSheetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CueSheetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ADBDCD248CD399004A898C /* CueSheetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheetTests.swift; sourceTree = "<group>"; };
 		62ADBDCF248CD399004A898C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		62ADBDD9248CD3A6004A898C /* CueSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheet.swift; sourceTree = "<group>"; };
+		62ADBDD9248CD3A6004A898C /* CueSheetParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheetParser.swift; sourceTree = "<group>"; };
+		62ADBDDC248CE719004A898C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		62ADBDDE248CE722004A898C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		62ADBDE0248CE73A004A898C /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
+		62B060ED24986566009B8A00 /* test1.cue */ = {isa = PBXFileReference; lastKnownFileType = text; path = test1.cue; sourceTree = "<group>"; };
+		62C70DA124975CB0005A57FC /* Rem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rem.swift; sourceTree = "<group>"; };
+		62C70DA324975CD1005A57FC /* CueSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +85,9 @@
 		62ADBDC1248CD399004A898C /* CueSheet */ = {
 			isa = PBXGroup;
 			children = (
+				62ADBDDB248CE6EE004A898C /* CueStruct */,
 				62ADBDC2248CD399004A898C /* CueSheet.h */,
-				62ADBDD9248CD3A6004A898C /* CueSheet.swift */,
+				62ADBDD9248CD3A6004A898C /* CueSheetParser.swift */,
 				62ADBDC3248CD399004A898C /* Info.plist */,
 			);
 			path = CueSheet;
@@ -83,10 +96,31 @@
 		62ADBDCC248CD399004A898C /* CueSheetTests */ = {
 			isa = PBXGroup;
 			children = (
+				62B060EC24986549009B8A00 /* Cue File */,
 				62ADBDCD248CD399004A898C /* CueSheetTests.swift */,
 				62ADBDCF248CD399004A898C /* Info.plist */,
 			);
 			path = CueSheetTests;
+			sourceTree = "<group>";
+		};
+		62ADBDDB248CE6EE004A898C /* CueStruct */ = {
+			isa = PBXGroup;
+			children = (
+				62ADBDDC248CE719004A898C /* Track.swift */,
+				62ADBDDE248CE722004A898C /* File.swift */,
+				62ADBDE0248CE73A004A898C /* Index.swift */,
+				62C70DA124975CB0005A57FC /* Rem.swift */,
+				62C70DA324975CD1005A57FC /* CueSheet.swift */,
+			);
+			path = CueStruct;
+			sourceTree = "<group>";
+		};
+		62B060EC24986549009B8A00 /* Cue File */ = {
+			isa = PBXGroup;
+			children = (
+				62B060ED24986566009B8A00 /* test1.cue */,
+			);
+			path = "Cue File";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +223,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62B060EE24986566009B8A00 /* test1.cue in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +234,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62ADBDDA248CD3A6004A898C /* CueSheet.swift in Sources */,
+				62ADBDDA248CD3A6004A898C /* CueSheetParser.swift in Sources */,
+				62ADBDDF248CE722004A898C /* File.swift in Sources */,
+				62ADBDE1248CE73A004A898C /* Index.swift in Sources */,
+				62C70DA424975CD1005A57FC /* CueSheet.swift in Sources */,
+				62ADBDDD248CE719004A898C /* Track.swift in Sources */,
+				62C70DA224975CB0005A57FC /* Rem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,7 +399,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aoikazto.CueSheet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aoikazto.CueSheetParser;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -385,7 +425,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.aoikazto.CueSheet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aoikazto.CueSheetParser;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
