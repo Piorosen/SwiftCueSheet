@@ -9,7 +9,7 @@
 import Foundation
 
 open class CueSheetParser {
-    init() {
+    open init() {
     }
     
     private func remParser(data:[String]) -> [String:String] {
