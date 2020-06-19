@@ -54,8 +54,8 @@ public struct IndexTime {
     
 }
 
-struct Index {
-    init(num:UInt8, time:IndexTime) {
+public struct Index {
+    public init(num:UInt8, time:IndexTime) {
         _indexNum = num
         _indexTime = time
     }
