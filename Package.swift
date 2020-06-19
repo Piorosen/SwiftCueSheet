@@ -23,7 +23,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "CueSheetTests",
-            dependencies: ["CueSheet"],
-            )
+            dependencies: ["CueSheet"])
     ]
 )
