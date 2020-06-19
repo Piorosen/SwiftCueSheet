@@ -8,8 +8,8 @@
 
 import Foundation
 
-open class CueSheetParser {
-    open init() {
+public class CueSheetParser {
+    public init() {
     }
     
     private func remParser(data:[String]) -> [String:String] {
@@ -137,7 +137,7 @@ open class CueSheetParser {
     }
     
     
-    open func Load(path:String?, encoding:String.Encoding = .utf8) -> CueSheet? {
+    public func Load(path:String?, encoding:String.Encoding = .utf8) -> CueSheet? {
         if let filePath = path {
             guard let read = read(filePath, encoding) else {
                 return nil
@@ -155,7 +155,7 @@ open class CueSheetParser {
         return nil
     }
     
-    open func getEncoding(_ path:String) -> [String.Encoding] {
+    public func getEncoding(_ path:String) -> [String.Encoding] {
         var checkList = [String.Encoding]()
         
         checkList.append(String.Encoding.ascii)
