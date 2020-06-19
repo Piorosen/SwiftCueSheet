@@ -137,7 +137,7 @@ public class CueSheetParser {
     }
     
     
-    public func Load(path:String?, encoding:String.Encoding = .utf8) -> CueSheet? {
+    public func Load(path:URL?, encoding:String.Encoding = .utf8) -> CueSheet? {
         if let filePath = path {
             guard let read = read(filePath, encoding) else {
                 return nil
@@ -155,7 +155,7 @@ public class CueSheetParser {
         return nil
     }
     
-    public func getEncoding(_ path:String) -> [String.Encoding] {
+    public func getEncoding(_ path:URL) -> [String.Encoding] {
         var checkList = [String.Encoding]()
         
         checkList.append(String.Encoding.ascii)
@@ -194,7 +194,7 @@ public class CueSheetParser {
 //        }
         
         for encoding in checkList {
-            if (try? String(contentsOfFile: path, encoding: encoding)) != nil {
+            if (try? String(contentsOf: path, encoding: encoding)) != nil {
                 result.append(encoding)
             }
         }
@@ -203,8 +203,8 @@ public class CueSheetParser {
     }
     
     
-    private func read(_ path:String, _ encoding:String.Encoding = .utf8) -> [String]? {
-        guard let readData = try? String(contentsOfFile: path, encoding: encoding) else {
+    private func read(_ path:URL, _ encoding:String.Encoding = .utf8) -> [String]? {
+        guard let readData = try? String(contentsOf: path, encoding: encoding) else {
             return nil
         }
         

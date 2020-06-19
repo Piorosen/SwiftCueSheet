@@ -36,14 +36,21 @@ final class CueSheetTests: XCTestCase {
 
     func testExistCheck1() {
         
-        let p = Bundle(for: type(of: self)).path(forResource: "Faithless - Live in Berlin", ofType: "cue")
-        let result = CueSheetParser().Load(path: p)
-        XCTAssertNotNil(result, "파일이 있는데 없다고 합니다.")
+        if let p = Bundle(for: type(of: self)).path(forResource: "Faithless - Live in Berlin", ofType: "cue") {
+            let result = CueSheetParser().Load(path: URL(fileURLWithPath: p))
+            XCTAssertNotNil(result, "파일이 있는데 없다고 합니다.")
+        }else {
+            XCTAssert(true, "Error")
+        }
     }
     func testExistCheck2() {
-        let p = Bundle(for: type(of: self)).path(forResource: "test2", ofType: "cue")
-        let result = CueSheetParser().Load(path: p)
-        XCTAssertNil(result, "파일이 없는데 존재 합니다.")
+        if let p = Bundle(for: type(of: self)).path(forResource: "test2", ofType: "cue") {
+            let result = CueSheetParser().Load(path: URL(fileURLWithPath: p))
+            XCTAssertNil(result, "파일이 없는데 존재 합니다.")
+        }else {
+            XCTAssert(true, "Error")
+        }
+        
     }
 
     func testAllCheck() {
