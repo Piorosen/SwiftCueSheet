@@ -9,39 +9,35 @@
 import Foundation
 
 
-
-
-
 open class CueSheetParser {
     init() {
     }
     
-    private func remParser(data:[String]) -> [Rem] {
-        var result = [Rem]()
+    private func remParser(data:[String]) -> [String:String] {
+        var result = Rem()
         
         for item in data {
             let sp = item.split(separator: " ")
             
-            let key = sp[1]
-            let value = sp[2]
+            let key = String(sp[1])
+            let value = String(sp[2])
             
-            result.append(Rem(name: String(key), value: String(value)))
+            result[key] = value
         }
         
         return result
     }
     
-    private func metaParser(data:[String]) -> (title:String, performer:String, songWriter:String) {
+    private func metaParser(data:[String]) -> [String:String] {
         var dicResult = [String:String]()
         
         for item in data {
             let splited = item.split(separator: " ")
             
-            dicResult[String(splited[0].uppercased())] = String(splited[1])
-                                                            .trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+            dicResult[String(splited[0].uppercased())] = String(item[splited[0].endIndex...])
         }
-        
-        return (dicResult["TITLE"] ?? "", dicResult["PERFORMER"] ?? "", dicResult["SONGWRITER"] ?? "")
+        //(dicResult["TITLE"] ?? "", dicResult["PERFORMER"] ?? "", dicResult["SONGWRITER"] ?? "")
+        return dicResult
     }
     
     private func trackParser(data:[String]) -> Track {
@@ -51,6 +47,7 @@ open class CueSheetParser {
         
         var dicResult = [String:String]()
         
+        var rem = Rem()
         var soundIndex = [Index]()
         
         for index in 1 ..< data.count {
@@ -64,15 +61,18 @@ open class CueSheetParser {
                 soundIndex.append(Index(num: UInt8(indexNum), time: indexTime!))
                 
                 continue
+            }else if command == "REM" {
+                let key = String(sp[1])
+                let value = String(sp[2])
+                
+                rem[key] = value
             }
             
             dicResult[command] = String(data[index][command.endIndex...])
                                         .trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
         }
         
-        
-        
-        return Track(performer: dicResult["PERFORMER"] ?? "", songWriter: dicResult["SONGWRITER"] ?? "", title: dicResult["TITLE"] ?? "", trackNum: fileIndex, trackType: fileType, index: soundIndex)
+        return Track(item: dicResult, trackNum: fileIndex, trackType: fileType, index: soundIndex, rem: rem)
     }
     
     private func fileParser(file:String, track:[[String]]) -> File {
@@ -107,7 +107,7 @@ open class CueSheetParser {
             let command = String(lineInfo[0].uppercased())
             
             // 최초 REM 데이터 탐색
-            if (command == "REM") {
+            if (command == "REM" && findFile == false) {
                 remList.append(item)
             }
             // meta 데이터 탐색
@@ -149,13 +149,59 @@ open class CueSheetParser {
                 let r = remParser(data: splited.rem)
                 let f = fileParser(file: splited.file, track: splited.track)
                 
-                return CueSheet(title: m.title, performer: m.performer, rem: r, file: f)
+                return CueSheet(meta: m, rem: r, file: f)
             }
         }
         
         return nil
     }
     
+    open func getEncoding(_ path:String) -> [String.Encoding] {
+        var checkList = [String.Encoding]()
+        
+        checkList.append(String.Encoding.ascii)
+        checkList.append(String.Encoding.iso2022JP)
+        checkList.append(String.Encoding.isoLatin1)
+        checkList.append(String.Encoding.isoLatin2)
+        checkList.append(String.Encoding.japaneseEUC)
+        checkList.append(String.Encoding.macOSRoman)
+        checkList.append(String.Encoding.nextstep)
+        checkList.append(String.Encoding.nonLossyASCII)
+        checkList.append(String.Encoding.shiftJIS)
+        checkList.append(String.Encoding.symbol)
+        checkList.append(String.Encoding.unicode)
+        checkList.append(String.Encoding.utf16)
+        checkList.append(String.Encoding.utf16BigEndian)
+        checkList.append(String.Encoding.utf16LittleEndian)
+        checkList.append(String.Encoding.utf32)
+        checkList.append(String.Encoding.utf32BigEndian)
+        checkList.append(String.Encoding.utf32LittleEndian)
+        checkList.append(String.Encoding.utf8)
+        checkList.append(String.Encoding.windowsCP1250)
+        checkList.append(String.Encoding.windowsCP1251)
+        checkList.append(String.Encoding.windowsCP1252)
+        checkList.append(String.Encoding.windowsCP1253)
+        checkList.append(String.Encoding.windowsCP1254)
+        
+        var result = [String.Encoding]()
+        
+//        let loadResult = Load(path: path, encoding: encoding)
+//
+//        let cueName = URL(fileURLWithPath: loadResult?.file.fileName ?? "").deletingPathExtension().lastPathComponent
+//        let realName = URL(fileURLWithPath: path).deletingPathExtension().lastPathComponent
+//
+//        if (cueName == realName) {
+//            result.append(encoding)
+//        }
+        
+        for encoding in checkList {
+            if (try? String(contentsOfFile: path, encoding: encoding)) != nil {
+                result.append(encoding)
+            }
+        }
+        
+        return result
+    }
     
     
     private func read(_ path:String, _ encoding:String.Encoding = .utf8) -> [String]? {
@@ -168,7 +214,7 @@ open class CueSheetParser {
         }
         
         var result = [String]()
-        let s = readData.split(separator: "\n")
+        let s = readData.components(separatedBy: .newlines).filter { !$0.isEmpty }
         
         for i in s.indices {
             let removedLine = String(s[i].trimmingCharacters(in: .whitespacesAndNewlines))

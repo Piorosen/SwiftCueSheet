@@ -2,13 +2,11 @@
 //  Rem.swift
 //  CueSheet
 //
-//  Created by Aoikazto on 2020/06/15.
+//  Created by Aoikazto on 2020/06/19.
 //  Copyright © 2020 Aoikazto. All rights reserved.
 //
 
 import Foundation
 
-struct Rem {
-    var name:String
-    var value:String
-}
+typealias Rem = [String:String]
+typealias Meta = [String:String]

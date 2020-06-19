@@ -9,10 +9,7 @@
 import Foundation
 
 public struct CueSheet {
-    var title:String
-    var performer:String
-    
-
-    var rem:[Rem]
+    var meta:Meta
+    var rem:Rem
     var file:File
 }

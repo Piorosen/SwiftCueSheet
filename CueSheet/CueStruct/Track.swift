@@ -9,15 +9,24 @@
 import Foundation
 
 struct Track {
-
-//    var Flags:String = ""
-//    var isrc:String = ""
-    var performer:String = ""
-//    var postGap:String = ""
-//    var preGap:String = ""
-    var songWriter:String = ""
-    var title:String = ""
-    var trackNum:Int = 0
-    var trackType:String = ""
-    var index: [Index]
+    init(item:[String:String], trackNum:Int, trackType: String, index: [Index], rem:Rem){
+        isrc = item["ISRC"] ?? ""
+        performer = item["PERFORMER"] ?? ""
+        songWriter = item["SONGWRITER"] ?? ""
+        title = item["TITLE"] ?? ""
+        
+        self.trackNum = trackNum
+        self.trackType = trackType
+        self.index = index
+        self.rem = rem
+    }
+    
+    var isrc:String
+    var performer:String
+    var songWriter:String
+    var title:String
+    var trackNum:Int
+    var trackType:String
+    var index:[Index]
+    var rem:Rem
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6238B89E249C61F400BF5308 /* Rem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6238B89D249C61F400BF5308 /* Rem.swift */; };
+		62992CE02499BA24005A319A /* 3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue in Resources */ = {isa = PBXBuildFile; fileRef = 62992CDE2499BA24005A319A /* 3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue */; };
+		62992CE12499BA24005A319A /* MYTH&ROID - HYDRA.cue in Resources */ = {isa = PBXBuildFile; fileRef = 62992CDF2499BA24005A319A /* MYTH&ROID - HYDRA.cue */; };
 		62ADBDC9248CD399004A898C /* CueSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62ADBDBF248CD399004A898C /* CueSheet.framework */; };
 		62ADBDCE248CD399004A898C /* CueSheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDCD248CD399004A898C /* CueSheetTests.swift */; };
 		62ADBDD0248CD399004A898C /* CueSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 62ADBDC2248CD399004A898C /* CueSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -14,8 +17,7 @@
 		62ADBDDD248CE719004A898C /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDDC248CE719004A898C /* Track.swift */; };
 		62ADBDDF248CE722004A898C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDDE248CE722004A898C /* File.swift */; };
 		62ADBDE1248CE73A004A898C /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ADBDE0248CE73A004A898C /* Index.swift */; };
-		62B060EE24986566009B8A00 /* test1.cue in Resources */ = {isa = PBXBuildFile; fileRef = 62B060ED24986566009B8A00 /* test1.cue */; };
-		62C70DA224975CB0005A57FC /* Rem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C70DA124975CB0005A57FC /* Rem.swift */; };
+		62B060EE24986566009B8A00 /* Faithless - Live in Berlin.cue in Resources */ = {isa = PBXBuildFile; fileRef = 62B060ED24986566009B8A00 /* Faithless - Live in Berlin.cue */; };
 		62C70DA424975CD1005A57FC /* CueSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C70DA324975CD1005A57FC /* CueSheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6238B89D249C61F400BF5308 /* Rem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rem.swift; sourceTree = "<group>"; };
+		62992CDE2499BA24005A319A /* 3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue"; path = "../../../../3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue"; sourceTree = "<group>"; };
+		62992CDF2499BA24005A319A /* MYTH&ROID - HYDRA.cue */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "MYTH&ROID - HYDRA.cue"; path = "../../../../MYTH&ROID - HYDRA.cue"; sourceTree = "<group>"; };
 		62ADBDBF248CD399004A898C /* CueSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CueSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62ADBDC2248CD399004A898C /* CueSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CueSheet.h; sourceTree = "<group>"; };
 		62ADBDC3248CD399004A898C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -40,8 +45,7 @@
 		62ADBDDC248CE719004A898C /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		62ADBDDE248CE722004A898C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		62ADBDE0248CE73A004A898C /* Index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
-		62B060ED24986566009B8A00 /* test1.cue */ = {isa = PBXFileReference; lastKnownFileType = text; path = test1.cue; sourceTree = "<group>"; };
-		62C70DA124975CB0005A57FC /* Rem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rem.swift; sourceTree = "<group>"; };
+		62B060ED24986566009B8A00 /* Faithless - Live in Berlin.cue */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Faithless - Live in Berlin.cue"; sourceTree = "<group>"; };
 		62C70DA324975CD1005A57FC /* CueSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,8 +113,8 @@
 				62ADBDDC248CE719004A898C /* Track.swift */,
 				62ADBDDE248CE722004A898C /* File.swift */,
 				62ADBDE0248CE73A004A898C /* Index.swift */,
-				62C70DA124975CB0005A57FC /* Rem.swift */,
 				62C70DA324975CD1005A57FC /* CueSheet.swift */,
+				6238B89D249C61F400BF5308 /* Rem.swift */,
 			);
 			path = CueStruct;
 			sourceTree = "<group>";
@@ -118,7 +122,9 @@
 		62B060EC24986549009B8A00 /* Cue File */ = {
 			isa = PBXGroup;
 			children = (
-				62B060ED24986566009B8A00 /* test1.cue */,
+				62992CDE2499BA24005A319A /* 3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue */,
+				62992CDF2499BA24005A319A /* MYTH&ROID - HYDRA.cue */,
+				62B060ED24986566009B8A00 /* Faithless - Live in Berlin.cue */,
 			);
 			path = "Cue File";
 			sourceTree = "<group>";
@@ -223,7 +229,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62B060EE24986566009B8A00 /* test1.cue in Resources */,
+				62992CE12499BA24005A319A /* MYTH&ROID - HYDRA.cue in Resources */,
+				62992CE02499BA24005A319A /* 3年E組うた担(渚&茅野&業&磯貝&前原)  - QUESTION.cue in Resources */,
+				62B060EE24986566009B8A00 /* Faithless - Live in Berlin.cue in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,10 +244,10 @@
 			files = (
 				62ADBDDA248CD3A6004A898C /* CueSheetParser.swift in Sources */,
 				62ADBDDF248CE722004A898C /* File.swift in Sources */,
+				6238B89E249C61F400BF5308 /* Rem.swift in Sources */,
 				62ADBDE1248CE73A004A898C /* Index.swift in Sources */,
 				62C70DA424975CD1005A57FC /* CueSheet.swift in Sources */,
 				62ADBDDD248CE719004A898C /* Track.swift in Sources */,
-				62C70DA224975CB0005A57FC /* Rem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
