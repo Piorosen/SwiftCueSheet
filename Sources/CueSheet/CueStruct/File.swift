@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct File {
+public struct File {
     public private(set) var tracks:[Track]
     var fileName:String
     var fileType:String

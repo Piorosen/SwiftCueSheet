@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct IndexTime {
+public struct IndexTime {
     public let framePerSecond = 75
     
     public var minutes:Double {

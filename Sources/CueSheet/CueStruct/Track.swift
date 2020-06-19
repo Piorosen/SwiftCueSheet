@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Track {
+public struct Track {
     init(item:[String:String], trackNum:Int, trackType: String, index: [Index], rem:Rem){
         isrc = item["ISRC"] ?? ""
         performer = item["PERFORMER"] ?? ""
