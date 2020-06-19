@@ -133,6 +133,10 @@ public class CueSheetParser {
             }
         }
         
+        if trackBuffer?.count != 0 {
+            trackList.append(trackBuffer!)
+        }
+        
         return (remList, metaList, file, trackList)
     }
     
