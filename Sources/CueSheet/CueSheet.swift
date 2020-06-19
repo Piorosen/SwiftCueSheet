@@ -1,5 +1,5 @@
 public struct CueSheet {
-    var meta:Meta
-    var rem:Rem
-    var file:File
+    public var meta:Meta
+    public var rem:Rem
+    public var file:File
 }

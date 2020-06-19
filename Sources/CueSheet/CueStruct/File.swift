@@ -10,6 +10,6 @@ import Foundation
 
 public struct File {
     public private(set) var tracks:[Track]
-    var fileName:String
-    var fileType:String
+    public var fileName:String
+    public var fileType:String
 }

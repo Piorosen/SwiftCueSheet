@@ -48,7 +48,7 @@ public struct IndexTime {
         }
     }
     
-    init(min:Int, sec:Int, frame:Int){
+    public init(min:Int, sec:Int, frame:Int){
         self.frames = frame + (sec * framePerSecond) + (min * framePerSecond * 60)
     }
     

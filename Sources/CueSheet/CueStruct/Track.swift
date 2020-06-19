@@ -21,12 +21,12 @@ public struct Track {
         self.rem = rem
     }
     
-    var isrc:String
-    var performer:String
-    var songWriter:String
-    var title:String
-    var trackNum:Int
-    var trackType:String
-    var index:[Index]
-    var rem:Rem
+    public var isrc:String
+    public var performer:String
+    public var songWriter:String
+    public var title:String
+    public var trackNum:Int
+    public var trackType:String
+    public var index:[Index]
+    public var rem:Rem
 }
