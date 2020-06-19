@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 open class CueSheetParser {
     init() {
     }
