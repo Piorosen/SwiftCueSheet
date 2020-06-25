@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+
 public struct InfoOfAudio {
     let lengthOfAudio:CMTime
     

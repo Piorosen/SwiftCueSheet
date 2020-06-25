@@ -9,19 +9,22 @@ import Foundation
 import AVFoundation
 
 public extension CueSheetParser {
-    
     // 음악 파일 까지 읽고 다 동작 시킴.
     func loadFile(pathOfMusic music:URL?, pathOfCue cue:URL?, encoding: String.Encoding = .utf8) -> CueSheet? {
         if let cue = cue, let music = music {
-            if !FileManager.default.fileExists(atPath: music.path) {
+            if !FileManager.default.fileExists(atPath: music.path) || !FileManager.default.fileExists(atPath: cue.path) {
                 return nil
             }
             
             let infoOfMusic = AVAsset(url: music)
-            
             let file = try? AVAudioFile(forReading: music)
-            let lengthOfMusic = CMTimeGetSeconds(infoOfMusic.duration)
+            if file == nil {
+                return nil
+            }
+            let info = InfoOfAudio(lengthOfAudio: infoOfMusic.duration, format: file!.fileFormat, length: file!.length)
             
+            
+            let lengthOfMusic = CMTimeGetSeconds(infoOfMusic.duration)
             
             let cueSheet = self.Load(path: cue, encoding: encoding)
             if var cueSheet = cueSheet {
@@ -53,8 +56,10 @@ public extension CueSheetParser {
                     
                     calcStartTime += dur + interval
                     
-                    return cueSheet
+                 
                 }
+                cueSheet.info = info
+                return cueSheet
             }
         }
         
