@@ -9,7 +9,7 @@
 import Foundation
 
 public struct File {
-    public private(set) var tracks:[Track]
+    public var tracks:[Track]
     public var fileName:String
     public var fileType:String
 }

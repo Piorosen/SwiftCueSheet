@@ -9,7 +9,7 @@
 import Foundation
 
 public struct IndexTime {
-    public let framePerSecond = 75
+    public static let framePerSecond = 75
     
     public var minutes:Double {
         get {
@@ -25,7 +25,7 @@ public struct IndexTime {
         get {
             // 75 프레임 == 1초
             //
-            return (Double(frames) / Double(framePerSecond)) * 1000
+            return (Double(frames) / Double(IndexTime.framePerSecond)) * 1000
         }
     }
     
@@ -49,7 +49,7 @@ public struct IndexTime {
     }
     
     public init(min:Int, sec:Int, frame:Int){
-        self.frames = frame + (sec * framePerSecond) + (min * framePerSecond * 60)
+        self.frames = frame + (sec * IndexTime.framePerSecond) + (min * IndexTime.framePerSecond * 60)
     }
     
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 public struct Track {
     init(item:[String:String], trackNum:Int, trackType: String, index: [Index], rem:Rem){
@@ -29,4 +30,9 @@ public struct Track {
     public var trackType:String
     public var index:[Index]
     public var rem:Rem
+    
+    public var duration: Double?
+    public var interval: Double?
+    public var startTime: CMTime?
+    
 }
