@@ -8,8 +8,8 @@
 import AVFoundation
 
 public struct InfoOfAudio {
-    let lengthOfAudio:CMTime
-    
-    let format:AVAudioFormat
-    let length: AVAudioFramePosition
+    public let lengthOfAudio:CMTime
+
+    public let format:AVAudioFormat
+    public let length: AVAudioFramePosition
 }
