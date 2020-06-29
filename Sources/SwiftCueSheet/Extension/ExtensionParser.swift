@@ -1,16 +1,15 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Aoikazto on 2020/06/24.
 //
 
 import Foundation
 import AVFoundation
-import CueSheet
 
 public extension CueSheetParser {
-    private func calcTime(sheet: CueSheet, lengthOfMusic:Double) -> CueSheet {
+    fileprivate func calcTime(sheet: CueSheet, lengthOfMusic:Double) -> CueSheet {
         var cueSheet = sheet
         
         var calcStartTime = 0.0
@@ -45,7 +44,7 @@ public extension CueSheetParser {
         return cueSheet
     }
     
-    private func getInfoOfAudio(music:URL) -> InfoOfAudio? {
+    fileprivate func getInfoOfAudio(music:URL) -> InfoOfAudio? {
         let infoOfMusic = AVAsset(url: music)
         let file = try? AVAudioFile(forReading: music)
         if file == nil {
@@ -55,7 +54,7 @@ public extension CueSheetParser {
         return InfoOfAudio(lengthOfAudio: infoOfMusic.duration, format: file!.fileFormat, length: file!.length)
     }
     
-    func loadFile(sheet: CueSheet, cue: URL) -> CueSheet? {
+    public func loadFile(sheet: CueSheet, cue: URL) -> CueSheet? {
         var cueSheet = sheet
         let music = cue.deletingPathExtension().appendingPathComponent(sheet.file.fileName)
         
@@ -71,8 +70,8 @@ public extension CueSheetParser {
         
         return cueSheet
     }
-    func loadFile(cue:URL?, encoding: String.Encoding = .utf8) -> CueSheet? {
-        guard var cueSheet = self.load(path: cue, encoding: encoding) else {
+    public func loadFile(cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
+        guard let cueSheet = self.load(path: cue, encoding: encoding) else {
             return nil
         }
         
@@ -80,11 +79,11 @@ public extension CueSheetParser {
     }
     
     // 음악 파일 까지 읽고 다 동작 시킴.
-    func loadFile(pathOfMusic music:URL, pathOfCue cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
+    public func loadFile(pathOfMusic music:URL, pathOfCue cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
         guard var sheet = load(path: cue, encoding: encoding) else {
             return nil
         }
-        guard let info = getInfoOfAudio(music: music) {
+        guard let info = getInfoOfAudio(music: music) else {
             return sheet
         }
         
