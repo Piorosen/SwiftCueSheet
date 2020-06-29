@@ -141,9 +141,19 @@ public class CueSheetParser {
     }
     
     
-    public func Load(path:URL?, encoding:String.Encoding = .utf8) -> CueSheet? {
-        if let filePath = path {
-            guard let read = read(filePath, encoding) else {
+    public func load(path:URL?, encoding:String.Encoding = .utf8) -> CueSheet? {
+        if let path = path {
+            guard let data = try? String(contentsOf: path, encoding: encoding) else {
+                return nil
+            }
+            return self.load(data: data, encoding: encoding)
+        }
+        return nil
+    }
+    
+    public func load(data:String?, encoding:String.Encoding = .utf8) -> CueSheet? {
+        if let data = data {
+            guard let read = read(data, encoding) else {
                 return nil
             }
             
@@ -155,7 +165,6 @@ public class CueSheetParser {
                 return CueSheet(meta: m, rem: r, file: f)
             }
         }
-        
         return nil
     }
     
@@ -207,17 +216,13 @@ public class CueSheetParser {
     }
     
     
-    private func read(_ path:URL, _ encoding:String.Encoding = .utf8) -> [String]? {
-        guard let readData = try? String(contentsOf: path, encoding: encoding) else {
-            return nil
-        }
-        
-        if readData.count == 0 {
+    private func read(_ data:String, _ encoding:String.Encoding = .utf8) -> [String]? {
+        if data.count == 0 {
             return nil
         }
         
         var result = [String]()
-        let s = readData.components(separatedBy: .newlines).filter { !$0.isEmpty }
+        let s = data.components(separatedBy: .newlines).filter { !$0.isEmpty }
         
         for i in s.indices {
             let removedLine = String(s[i].trimmingCharacters(in: .whitespacesAndNewlines))
