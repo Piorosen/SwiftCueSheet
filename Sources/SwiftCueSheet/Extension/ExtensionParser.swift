@@ -54,7 +54,7 @@ public extension CueSheetParser {
         return InfoOfAudio(lengthOfAudio: infoOfMusic.duration, format: file!.fileFormat, length: file!.length)
     }
     
-    public func loadFile(sheet: CueSheet, cue: URL) -> CueSheet? {
+    func loadFile(sheet: CueSheet, cue: URL) -> CueSheet? {
         var cueSheet = sheet
         let music = cue.deletingPathExtension().appendingPathComponent(sheet.file.fileName)
         
@@ -70,7 +70,7 @@ public extension CueSheetParser {
         
         return cueSheet
     }
-    public func loadFile(cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
+    func loadFile(cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
         guard let cueSheet = self.load(path: cue, encoding: encoding) else {
             return nil
         }
@@ -79,7 +79,7 @@ public extension CueSheetParser {
     }
     
     // 음악 파일 까지 읽고 다 동작 시킴.
-    public func loadFile(pathOfMusic music:URL, pathOfCue cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
+    func loadFile(pathOfMusic music:URL, pathOfCue cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
         guard var sheet = load(path: cue, encoding: encoding) else {
             return nil
         }
