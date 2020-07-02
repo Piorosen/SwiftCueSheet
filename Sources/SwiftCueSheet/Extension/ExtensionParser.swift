@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 public extension CueSheetParser {
-    fileprivate func calcTime(sheet: CueSheet, lengthOfMusic:Double) -> CueSheet {
+    func calcTime(sheet: CueSheet, lengthOfMusic:Double) -> CueSheet {
         var cueSheet = sheet
         
         var calcStartTime = 0.0
@@ -44,7 +44,7 @@ public extension CueSheetParser {
         return cueSheet
     }
     
-    fileprivate func getInfoOfAudio(music:URL) -> InfoOfAudio? {
+    func getInfoOfAudio(music:URL) -> InfoOfAudio? {
         let infoOfMusic = AVAsset(url: music)
         let file = try? AVAudioFile(forReading: music)
         if file == nil {
@@ -65,10 +65,9 @@ public extension CueSheetParser {
         guard let info = getInfoOfAudio(music: music) else {
             return sheet
         }
-        cueSheet = calcTime(sheet: cueSheet, lengthOfMusic: CMTimeGetSeconds(info.lengthOfAudio))
         cueSheet.info = info
         
-        return cueSheet
+        return calcTime(sheet: cueSheet, lengthOfMusic: CMTimeGetSeconds(info.lengthOfAudio))
     }
     func loadFile(cue:URL, encoding: String.Encoding = .utf8) -> CueSheet? {
         guard let cueSheet = self.load(path: cue, encoding: encoding) else {
@@ -89,7 +88,7 @@ public extension CueSheetParser {
         
         sheet.info = info
         
-        return sheet
+        return calcTime(sheet: cueSheet, lengthOfMusic: CMTimeGetSeconds(info.lengthOfAudio))
     }
     
 }
