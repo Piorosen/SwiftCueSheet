@@ -88,7 +88,7 @@ public extension CueSheetParser {
         
         sheet.info = info
         
-        return calcTime(sheet: cueSheet, lengthOfMusic: CMTimeGetSeconds(info.lengthOfAudio))
+        return calcTime(sheet: sheet, lengthOfMusic: CMTimeGetSeconds(info.lengthOfAudio))
     }
     
 }
