@@ -19,7 +19,7 @@ public class CueSheetParser {
             let sp = item.split(separator: " ")
             
             let key = String(sp[1])
-            let value = String(sp[2]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+            let value = String(sp[2])
             
             result[key] = value
         }
@@ -33,7 +33,7 @@ public class CueSheetParser {
         for item in data {
             let splited = item.split(separator: " ")
             
-            dicResult[String(splited[0].uppercased())] = String(item[splited[0].endIndex...]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+            dicResult[String(splited[0].uppercased())] = String(item[splited[0].endIndex...])
         }
         //(dicResult["TITLE"] ?? "", dicResult["PERFORMER"] ?? "", dicResult["SONGWRITER"] ?? "")
         return dicResult
