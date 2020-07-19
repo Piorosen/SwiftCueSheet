@@ -59,7 +59,7 @@ public extension CueSheetParser {
         let music = cue.deletingPathExtension().appendingPathComponent(sheet.file.fileName)
         
         if !FileManager.default.fileExists(atPath: music.path) || !FileManager.default.fileExists(atPath: cue.path) {
-            return nil
+            return sheet
         }
         
         guard let info = getInfoOfAudio(music: music) else {
