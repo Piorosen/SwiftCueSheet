@@ -21,6 +21,10 @@ public class CueSheetParser {
             let key = String(sp[1])
             let value = String(sp[2]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
             
+            if value.isEmpty {
+                continue
+            }
+            
             result[key] = value
         }
         
@@ -62,13 +66,21 @@ public class CueSheetParser {
                 continue
             }else if command == "REM" {
                 let key = String(sp[1])
-                let value = String(sp[2])
+                let value = String(sp[2]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+                
+                if value.isEmpty {
+                    continue
+                }
                 
                 rem[key] = value
+            }else {
+                let value = String(data[index][command.endIndex...]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+                if value.isEmpty {
+                    continue
+                }
+                
+                dicResult[command] = value
             }
-            
-            dicResult[command] = String(data[index][command.endIndex...])
-                                        .trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
         }
         
         return Track(item: dicResult, trackNum: fileIndex, trackType: fileType, index: soundIndex, rem: rem)
