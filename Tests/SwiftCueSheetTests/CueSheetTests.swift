@@ -1,4 +1,5 @@
 import XCTest
+import CoreMedia
 @testable import SwiftCueSheet
 
 
@@ -34,18 +35,6 @@ final class CueSheetTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExistCheck1() {
-//
-//        let result = CueSheetParser().Load(path: "")
-//        XCTAssertNotNil(result, "파일이 있는데 없다고 합니다.")
-//        
-//        if let p = Bundle(for: type(of: self)).path(forResource: "Faithless - Live in Berlin", ofType: "cue") {
-//            let result = CueSheetParser().Load(path: URL(fileURLWithPath: p))
-//            XCTAssertNotNil(result, "파일이 있는데 없다고 합니다.")
-//        }else {
-//            XCTAssert(false, "Error")
-//        }
-    }
     func testExistCheck2() {
         if let p = Bundle(for: type(of: self)).path(forResource: "test2", ofType: "cue") {
             let result = CueSheetParser().load(path: URL(fileURLWithPath: p))
@@ -56,30 +45,49 @@ final class CueSheetTests: XCTestCase {
         
     }
 
-    func testAllCheck() {
-        _ = URL(fileURLWithPath: #file).deletingLastPathComponent().appendingPathComponent("CueFile").absoluteString
+//    0.0 ~ 291.6533333333333
+//    291.653 ~ 176.56
+//    470.813 ~ 289.44
+//    764.853 ~ -767.4533333333334
+    func testMythRoidTime() {
+        guard let tmp = CueSheetParser().load(data: Resources.MYTH_and_ROID_cue) else {
+            XCTFail()
+            return
+        }
+        let sheet = CueSheetParser().calcTime(sheet: tmp, lengthOfMusic: 0)
         
-        _ = try? Resource(name: "Faithless - Live in Berlin", type: "cue")
+        guard let t1 = sheet.file.tracks[0].startTime, let dur1 = sheet.file.tracks[0].duration else {
+            XCTFail()
+            return
+        }
+        guard let t2 = sheet.file.tracks[1].startTime, let dur2 = sheet.file.tracks[1].duration else {
+            XCTFail()
+            return
+        }
+        guard let t3 = sheet.file.tracks[2].startTime, let dur3 = sheet.file.tracks[2].duration else {
+            XCTFail()
+            return
+        }
+        guard let t4 = sheet.file.tracks[3].startTime, let dur4 = sheet.file.tracks[3].duration else {
+            XCTFail()
+            return
+        }
         
-//        
-//        for item in list {
-//            let parser = CueSheetParser()
-//            _ = parser.getEncoding(item)
-//            
-//            let result = parser.Load(path: item)
-//            
-//            let cueName = URL(fileURLWithPath: result!.file.fileName).deletingPathExtension().lastPathComponent
-//            let realName = URL(fileURLWithPath: item).deletingPathExtension().lastPathComponent
-//            
-//            XCTAssertEqual(cueName, realName, "파일 명이 다르다고..? 같아아 할텐데?")
-//            XCTAssertNotNil(result, "읽기에 실패함")
-//        }
+        let epsilon = 0.01
+        
+        if  (abs(CMTimeGetSeconds(t1) - 0) < epsilon && abs(dur1 - 291.6533) < epsilon) &&
+            (abs(CMTimeGetSeconds(t2) - 291.653) < epsilon && abs(dur2 - 176.56) < epsilon) &&
+            (abs(CMTimeGetSeconds(t3) - 470.813) < epsilon && abs(dur3 - 289.44) < epsilon) &&
+            (abs(CMTimeGetSeconds(t4) - 764.853) < epsilon && abs(dur4 - (-767.4533)) < epsilon) {
+            
+        }else {
+            XCTFail("유추한 값이 실제론 다릅니다.")
+        }
     }
 
     static var allTests = [
-        ("testExistCheck1", testExistCheck1),
         ("testExistCheck2", testExistCheck2),
-        ("testAllCheck", testAllCheck),
+        ("testMythRoidTime", testMythRoidTime)
         
     ]
 }
