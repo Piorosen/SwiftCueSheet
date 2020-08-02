@@ -36,7 +36,7 @@ public extension CueSheetParser {
             
             cueSheet.file.tracks[index].duration = dur
             cueSheet.file.tracks[index].interval = interval
-            cueSheet.file.tracks[index].startTime = CMTime(seconds: calcStartTime * 100, preferredTimescale: 100)
+            cueSheet.file.tracks[index].startTime = CMTime(seconds: calcStartTime, preferredTimescale: 1000)
             
             calcStartTime += dur + interval
         }
