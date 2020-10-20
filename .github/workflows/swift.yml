@@ -1,8 +1,6 @@
 name: Build and Test
 
-on:
-  push: 
-    branches: [ main, master ]
+on: pull_request
 
 jobs:
   macOsTest:
@@ -14,15 +12,16 @@ jobs:
     - name: Run tests
       run: swift test -v
   
-  ubuntuTest:
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Swift Action
-        uses: tgymnich/setup-swift@v1.0.4
-        with:
-          version: '5.3'
-      - name: Build
-        run: swift build -v
-      - name: Run tests
-        run: swift test -v
+#  AVFoundation 라이브러리 때문에 오류가 발생함. 그러므로 잠시동안은 우분투 빌드는 하지 않음.
+#  ubuntuTest:
+#    runs-on: ubuntu-18.04
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Setup Swift Action
+#        uses: tgymnich/setup-swift@v1.0.4
+#        with:
+#          version: '5.3'
+#      - name: Build
+#        run: swift build -v
+#      - name: Run tests
+#        run: swift test -v
