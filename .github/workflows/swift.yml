@@ -1,0 +1,28 @@
+name: Build and Test
+
+on:
+  push: 
+    branches: [ main, master ]
+
+jobs:
+  macOsTest:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v
+  
+  ubuntuTest:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Swift Action
+        uses: tgymnich/setup-swift@v1.0.4
+        with:
+          version: '5.3'
+      - name: Build
+        run: swift build -v
+      - name: Run tests
+        run: swift test -v
