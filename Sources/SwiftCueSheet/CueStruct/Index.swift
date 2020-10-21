@@ -9,7 +9,7 @@
 import Foundation
 
 public struct CSIndexTime {
-    fileprivate static let framePerSecond = 75
+    internal static let framePerSecond = 75
     
     public var minutes:Double {
         get {
