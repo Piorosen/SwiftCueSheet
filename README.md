@@ -1,5 +1,8 @@
 # SwiftCueParser
 Cue Parser Swift version.
+![Badge](https://img.shields.io/github/license/Piorosen/SwiftCueSheet)
+![Badge](https://img.shields.io/github/v/release/Piorosen/SwiftCueSheet)
+![Badge](https://img.shields.io/github/workflow/status/Piorosen/SwiftCueSheet/Build)
 
 ## Prerequisites
   * swift >= 5.3
@@ -7,14 +10,12 @@ Cue Parser Swift version.
 
 개발 범위 | 빌드 | 유닛테스트
 ---|---|---
-MacOS | None | None
-Linux | None | None
+MacOS | ![Badge](https://action-badges.now.sh/Piorosen/SwiftCueSheet?action=build) | None
+Linux | ![Badge](https://action-badges.now.sh/Piorosen/SwiftCueSheet?action=build) | None
  
 ## 기능 추가 하는 방법
 
 ## 사용법
 
 ## 기능
-
-## 개발에 사용된 기술
 
