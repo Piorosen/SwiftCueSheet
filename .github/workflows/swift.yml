@@ -13,7 +13,7 @@ jobs:
     #   run: swift test -v
   
 #  AVFoundation 라이브러리 때문에 오류가 발생함. 그러므로 잠시동안은 우분투 빌드는 하지 않음.
- ubuntuTest:
+  ubuntuTest:
    runs-on: ubuntu-18.04
    steps:
      - uses: actions/checkout@v2
