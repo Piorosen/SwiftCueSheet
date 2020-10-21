@@ -8,8 +8,8 @@
 
 import Foundation
 
-public struct IndexTime {
-    public static let framePerSecond = 75
+public struct CSIndexTime {
+    internal static let framePerSecond = 75
     
     public var minutes:Double {
         get {
@@ -25,7 +25,7 @@ public struct IndexTime {
         get {
             // 75 프레임 == 1초
             //
-            return (Double(frames) / Double(IndexTime.framePerSecond)) * 1000
+            return (Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000
         }
     }
     
@@ -49,19 +49,19 @@ public struct IndexTime {
     }
     
     public init(min:Int, sec:Int, frame:Int){
-        self.frames = frame + (sec * IndexTime.framePerSecond) + (min * IndexTime.framePerSecond * 60)
+        self.frames = frame + (sec * CSIndexTime.framePerSecond) + (min * CSIndexTime.framePerSecond * 60)
     }
     
 }
 
-public struct Index {
-    public init(num:UInt8, time:IndexTime) {
+public struct CSIndex {
+    public init(num:UInt8, time:CSIndexTime) {
         _indexNum = num
         _indexTime = time
     }
     
     private var _indexNum:UInt8 = 0
-    private var _indexTime:IndexTime
+    private var _indexTime:CSIndexTime
     
     public private(set) var indexNum: UInt8 {
         get {
@@ -72,7 +72,7 @@ public struct Index {
         }
     }
 
-    public var indexTime:IndexTime {
+    public var indexTime:CSIndexTime {
         get {
             return _indexTime
         }

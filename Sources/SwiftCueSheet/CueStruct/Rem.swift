@@ -8,5 +8,5 @@
 
 import Foundation
 
-public typealias Rem = [String:String]
-public typealias Meta = [String:String]
+public typealias CSRem = [String:String]
+public typealias CSMeta = [String:String]
