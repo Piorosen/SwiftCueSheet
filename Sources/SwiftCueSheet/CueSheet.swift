@@ -2,7 +2,16 @@
 import AVFoundation
 #endif
 
-
+extension String {
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let stringLength = self.count
+        if stringLength < toLength {
+            return String(repeatElement(character, count: toLength - stringLength)) + self
+        } else {
+            return String(self.suffix(toLength))
+        }
+    }
+}
 
 public struct CueSheet {
     public var meta:CSMeta
@@ -16,10 +25,58 @@ public struct CueSheet {
     }
     
     public func save(url: URL) -> Bool {
-        return false
+        let item = save()
+        
+        if let _ = (try? item.write(to: url, atomically: true, encoding: .utf8)) {
+            return false
+        }
+        return true
+        
     }
     public func save() -> String {
-        return ""
+        var result = String()
+        
+        for item in self.rem {
+            result += "REM \(item.key) \"\(item.value)\"\n"
+        }
+        for item in self.meta {
+            result += "\(item.key) \"\(item.value)\"\n"
+        }
+        result += "FILE \"\(self.file.fileName)\" \(self.file.fileType)\n"
+        for track in self.file.tracks {
+            let idx = String(track.trackNum).leftPadding(toLength: 2, withPad: "0")
+            result += "\tTRACK \(idx) \(track.trackType)\n"
+            
+            if track.title.count != 0 {
+                result += "\t\tTITLE \"\(track.title)\"\n"
+            }
+            if track.performer.count != 0 {
+                result += "\t\tPERFORMER \"\(track.performer)\"\n"
+            }
+            if track.songWriter.count != 0 {
+                result += "\t\tSONGWRITER \"\(track.songWriter)\"\n"
+            }
+            if track.isrc.count != 0 {
+                result += "\t\tISRC \"\(track.isrc)\"\n"
+            }
+            
+            for rem in track.rem {
+                result += "\t\t"
+                result += "REM \(rem.key) \(rem.value)\n"
+            }
+            
+            for index in track.index {
+                result += "\t\t"
+                
+                let min = String(index.indexTime.minutes).leftPadding(toLength: 2, withPad: "0")
+                let sec = String(index.indexTime.seconds).leftPadding(toLength: 2, withPad: "0")
+                let frame = String(index.indexTime.frameBySecond).leftPadding(toLength: 2, withPad: "0")
+                
+                result += "INDEX \(String(index.indexNum).leftPadding(toLength: 2, withPad: "0")) \(min):\(sec):\(frame)\n"
+            }
+        }
+        
+        return result
     }
     
     
@@ -69,7 +126,7 @@ public struct CueSheet {
                 let next = file.tracks[index + 1].index[0].indexTime.frames
                 dur = Double((next - me)) / Double(CSIndexTime.framePerSecond)
             }else {
-                let me = file.tracks[index].index[lastIndex].indexTime.seconds
+                let me = file.tracks[index].index[lastIndex].indexTime.totalSeconds
                 dur = lengthOfMusic - me
             }
             
