@@ -1,7 +1,12 @@
+
 public struct CueSheet {
-    public var meta:Meta
-    public var rem:Rem
-    public var file:File
+    public var meta:CSMeta
+    public var rem:CSRem
+    public var file:CSFile
     
-    public var info:InfoOfAudio?
+#if canImport(AVFoundation)
+    public var info:CSAudio?
+#endif
 }
+
+
