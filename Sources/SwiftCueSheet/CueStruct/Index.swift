@@ -11,23 +11,37 @@ import Foundation
 public struct CSIndexTime {
     internal static let framePerSecond = 75
     
-    public var minutes:Double {
+    public var minutes:Int {
         get {
-            return seconds / 60
+            return Int(totalMinutes)
         }
     }
-    public var seconds:Double {
+    public var seconds:Int {
         get {
-            return miliseconds / 1000
+            return Int(totalSeconds) % 60
         }
     }
-    public var miliseconds:Double {
+    public var miliseconds: Int {
         get {
             // 75 프레임 == 1초
             //
-            return (Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000
+            return Int((Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000) % 1000
         }
     }
+    public var frameBySecond: Int {
+        return frames % 75
+    }
+    
+    public var totalMinutes: Double {
+        return Double(frames) / 75 / 60
+    }
+    public var totalSeconds: Double {
+        return Double(frames) / 75
+    }
+    public var totalMiliseconds: Double {
+        return Double(frames) / 75 * 1000
+    }
+    
     
     public private(set) var frames:Int
     

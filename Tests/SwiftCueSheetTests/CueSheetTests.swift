@@ -34,60 +34,55 @@ final class CueSheetTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
-
-    func testExistCheck2() {
-        if let p = Bundle(for: type(of: self)).path(forResource: "test2", ofType: "cue") {
-            let result = CueSheetParser().load(path: URL(fileURLWithPath: p))
-            XCTAssertNil(result, "파일이 없는데 존재 합니다.")
-        }else {
-            XCTAssert(true, "Error")
+    
+    func testMythRoidSaveTime() {
+        let time = CueSheetParser().load(data: CueSheetParser().load(data: Resources.MYTH_and_ROID_cue).save()).calcTime()
+        let ep = 0.001
+        print(time)
+        if abs(time[0].startTime - 0) < ep && abs(time[0].duration - 291.653) < ep &&
+            abs(time[1].startTime - 291.653) < ep && abs(time[1].duration - 176.56) < ep &&
+            abs(time[2].startTime - 470.813) < ep && abs(time[2].duration - 289.44) < ep &&
+            abs(time[3].startTime - 764.853) < ep && abs(time[3].duration - (-767.453)) < ep {
+            
+        }else{
+            XCTFail("잘못된 시간 측정")
         }
-        
     }
-
-//    0.0 ~ 291.6533333333333
-//    291.653 ~ 176.56
-//    470.813 ~ 289.44
-//    764.853 ~ -767.4533333333334
+    
+    func testFaithlessLiveInBerlinTime() {
+        let time = CueSheetParser().load(data: Resources.Faithless_Live_in_Berlin_cue).calcTime(lengthOfMusic: 0)
+        let ep = 0.001
+        if abs(time[0].startTime - 0) < ep && abs(time[0].duration -   402.0) < ep &&
+            abs(time[1].startTime - 402.0 ) < ep && abs(time[1].duration - 252.0) < ep &&
+            abs(time[2].startTime - 654.0 ) < ep && abs(time[2].duration - 370.0) < ep &&
+            abs(time[3].startTime - 1024.0) < ep && abs(time[3].duration - 520.0) < ep &&
+            abs(time[4].startTime - 1544.0) < ep && abs(time[4].duration - 306.0) < ep &&
+            abs(time[5].startTime - 1850.0) < ep && abs(time[5].duration - 454.0) < ep &&
+            abs(time[6].startTime - 2304.0) < ep && abs(time[6].duration - 251.0) < ep &&
+            abs(time[7].startTime - 2555.0) < ep && abs(time[7].duration - -2555.0) < ep {
+            
+        }else {
+            XCTFail("잘못된 시간 측정")
+        }
+    }
+        
     func testMythRoidTime() {
-//        let tmp = CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
-//            XCTFail()
-//            return
-//        }
-//        let sheet = CueSheetParser().calcTime(sheet: tmp, lengthOfMusic: 0)
-//
-//        guard let t1 = sheet.file.tracks[0].startTime, let dur1 = sheet.file.tracks[0].duration else {
-//            XCTFail()
-//            return
-//        }
-//        guard let t2 = sheet.file.tracks[1].startTime, let dur2 = sheet.file.tracks[1].duration else {
-//            XCTFail()
-//            return
-//        }
-//        guard let t3 = sheet.file.tracks[2].startTime, let dur3 = sheet.file.tracks[2].duration else {
-//            XCTFail()
-//            return
-//        }
-//        guard let t4 = sheet.file.tracks[3].startTime, let dur4 = sheet.file.tracks[3].duration else {
-//            XCTFail()
-//            return
-//        }
-//        
-//        let epsilon = 0.01
-//        
-//        if  (abs(CMTimeGetSeconds(t1) - 0) < epsilon && abs(dur1 - 291.6533) < epsilon) &&
-//            (abs(CMTimeGetSeconds(t2) - 291.653) < epsilon && abs(dur2 - 176.56) < epsilon) &&
-//            (abs(CMTimeGetSeconds(t3) - 470.813) < epsilon && abs(dur3 - 289.44) < epsilon) &&
-//            (abs(CMTimeGetSeconds(t4) - 764.853) < epsilon && abs(dur4 - (-767.4533)) < epsilon) {
-//            
-//        }else {
-//            XCTFail("유추한 값이 실제론 다릅니다.")
-//        }
+        let time = CueSheetParser().load(data: Resources.MYTH_and_ROID_cue).calcTime(lengthOfMusic: 0)
+        let ep = 0.001
+        
+        if abs(time[0].startTime - 0) < ep && abs(time[0].duration - 291.653) < ep &&
+            abs(time[1].startTime - 291.653) < ep && abs(time[1].duration - 176.56) < ep &&
+            abs(time[2].startTime - 470.813) < ep && abs(time[2].duration - 289.44) < ep &&
+            abs(time[3].startTime - 764.853) < ep && abs(time[3].duration - (-767.453)) < ep {
+            
+        }else{
+            XCTFail("잘못된 시간 측정")
+        }
     }
 
     static var allTests = [
-        ("testExistCheck2", testExistCheck2),
+        ("testMythRoidSaveTime", testMythRoidSaveTime),
+        ("testFaithlessLiveInBerlinTime", testFaithlessLiveInBerlinTime),
         ("testMythRoidTime", testMythRoidTime)
-        
     ]
 }
