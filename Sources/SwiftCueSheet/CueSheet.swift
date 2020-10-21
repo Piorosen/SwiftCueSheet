@@ -1,3 +1,5 @@
+import Foundation
+
 #if canImport(AVFoundation)
 import AVFoundation
 #endif
