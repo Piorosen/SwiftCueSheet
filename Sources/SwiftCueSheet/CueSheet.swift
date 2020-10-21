@@ -139,7 +139,7 @@ public struct CueSheet {
                 interval = Double(shortCut[shortCut.count - 1].indexTime.frames - shortCut[0].indexTime.frames) / Double(CSIndexTime.framePerSecond)
             }
             
-            result.append(CSLengthOfAudio(startTime: calcStartTime, duration: dur))
+            result.append(CSLengthOfAudio(startTime: calcStartTime, duration: dur, interval: interval))
             //            file.tracks[index].duration = dur
             //            file.tracks[index].interval = interval
             //            file.tracks[index].startTime = CMTime(seconds: calcStartTime, preferredTimescale: 1000)
