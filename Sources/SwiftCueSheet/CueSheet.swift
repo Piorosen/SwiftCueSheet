@@ -15,6 +15,14 @@ public struct CueSheet {
         self.file = file
     }
     
+    public func save(url: URL) -> Bool {
+        return false
+    }
+    public func save() -> String {
+        return ""
+    }
+    
+    
     #if canImport(AVFoundation)
     private var ownAudioLength:Double = 0
     public mutating func getInfoOfAudio(music: URL) -> CSAudio? {
