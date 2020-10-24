@@ -1,9 +1,9 @@
 name: ubuntu-build
 
-on: pull_request
+on: [pull_request, push]
 
 jobs:
-  ubuntuTest:
+  build:
    runs-on: ubuntu-18.04
    steps:
      - uses: actions/checkout@v2
@@ -13,3 +13,16 @@ jobs:
          version: '5.2'
      - name: Build
        run: swift build -v
+  
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+     - uses: actions/checkout@v2
+     - name: Setup Swift Action
+       uses: tgymnich/setup-swift@v1.0.4
+       with:
+         version: '5.3'
+     - name: Build
+       run: swift build -v
+     - name: Test
+       run: swift test -v
