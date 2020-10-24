@@ -10,8 +10,8 @@ Cue Parser Swift version.
 
 개발 범위 | 빌드 | 유닛테스트
 ---|---|---
-MacOS | ![Badge](https://action-badges.now.sh/Piorosen/SwiftCueSheet?action=build) | None
-Linux | ![Badge](https://action-badges.now.sh/Piorosen/SwiftCueSheet?action=build) | None
+MacOS | ![Badge](https://action-badges.now.sh/Piorosen/SwiftCueSheet?action=macOS-Build) | None
+Linux | ![Badge](https://action-badges.now.sh/Piorosen/SwiftCueSheet?action=ubuntu-Build) | None
  
 ## 기능 추가 하는 방법
 
