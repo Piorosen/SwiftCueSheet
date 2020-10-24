@@ -81,7 +81,6 @@ public struct CueSheet {
         return result
     }
     
-    
     #if canImport(AVFoundation)
     private var ownAudioLength:Double = 0
     public mutating func getInfoOfAudio(music: URL) -> CSAudio? {
@@ -120,31 +119,21 @@ public struct CueSheet {
         var result = [CSLengthOfAudio]()
         
         for index in self.file.tracks.indices {
-            var dur = 0.0
-            let lastIndex = file.tracks[index].index.count - 1
-            
-            if index != file.tracks.count - 1 {
-                let me = file.tracks[index].index[lastIndex].indexTime.frames
-                let next = file.tracks[index + 1].index[0].indexTime.frames
-                dur = Double((next - me)) / Double(CSIndexTime.framePerSecond)
-            }else {
-                let me = file.tracks[index].index[lastIndex].indexTime.totalSeconds
-                dur = lengthOfMusic - me
+            if let sf = file.tracks[index].index.first, let sl = file.tracks[index].index.last {
+                let frontInterval = sl.indexTime.totalSeconds - sf.indexTime.totalSeconds
+                calcStartTime += frontInterval
+                
+                let startTime = calcStartTime
+                
+                let endTime: Double
+                if let nf = file.tracks.index(of: Int(index) + 1)?.index.first {
+                    endTime = nf.indexTime.totalSeconds
+                }else {
+                    endTime = lengthOfMusic
+                }
+                result.append(CSLengthOfAudio(startTime: startTime, duration: endTime - startTime, interval: frontInterval))
+                calcStartTime += endTime - startTime
             }
-            
-            var interval = 0.0
-            
-            if file.tracks[index].index.count != 0 {
-                let shortCut = file.tracks[index].index
-                interval = Double(shortCut[shortCut.count - 1].indexTime.frames - shortCut[0].indexTime.frames) / Double(CSIndexTime.framePerSecond)
-            }
-            
-            result.append(CSLengthOfAudio(startTime: calcStartTime, duration: dur, interval: interval))
-            //            file.tracks[index].duration = dur
-            //            file.tracks[index].interval = interval
-            //            file.tracks[index].startTime = CMTime(seconds: calcStartTime, preferredTimescale: 1000)
-            
-            calcStartTime += dur + interval
         }
         
         return result
