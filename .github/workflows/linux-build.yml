@@ -13,3 +13,5 @@ jobs:
          version: '5.2'
      - name: Build
        run: swift build -v
+     - name: Unit Test
+       run: swift test -v 
