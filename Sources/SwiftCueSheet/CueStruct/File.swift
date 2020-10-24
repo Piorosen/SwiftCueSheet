@@ -34,10 +34,11 @@ extension Array where Element == CSTrack {
     }
     
     mutating func appendTrack(startTime: Double, endTime: Double, Title: String, trackNum: String) -> Bool {
-        // Time Validation
+        // 시간 가능한지 확인
         var run = false
         var index: Int = -1
         let resources = getUsableResource()
+        // 반복문을 통하여 체크 함.
         for idx in resources.indices {
             if resources[idx].start <= startTime && endTime <= resources[idx].end {
                 run = true
@@ -45,31 +46,33 @@ extension Array where Element == CSTrack {
                 break
             }
         }
+        // run이 불가능하다면 탈출함.
         if !run {
             return false
         }
+        
         
         // Make CSIndex
         let startSongFrames = Int(startTime * 1000) % 1000
         let endSongFrames = Int(endTime * 1000) % 1000
         
-        let songEndTime = CSIndex(num: 0, time: CSIndexTime(min: Int(endTime / 60), sec: Int(endTime) % 60, frame: endSongFrames / 75))
+        // INDEX로 노래 시작하는 인덱스임
         let songStartTime = CSIndex(num: 0, time: CSIndexTime(min: Int(startTime / 60), sec: Int(startTime) % 60, frame: startSongFrames / 75))
         
+        // INDEX로 노래 끝나는 인덱스임.
+        let songEndTime = CSIndex(num: 0, time: CSIndexTime(min: Int(endTime / 60), sec: Int(endTime) % 60, frame: endSongFrames / 75))
         
-        let songDelayStart = self.index(of: index)?.index.first!
-        
-        if self.index(of: index) != nil {
-            self[index].index.insert(songEndTime, at: 0)
-//            insertTrack.index.insert(songEndTime, at: 0)
-        }
         
         // Initialize CSTrack
-        let track = CSTrack(index: [songDelayStart!, songStartTime], rem: CSRem())
         // Append CSTrack
-        self.insert(track, at: index)
-        
-        return true
+        if let check = self.index(of: index), let songDelayStart = check.index.first {
+            self[index].index.insert(songEndTime, at: 0)
+            self.insert(CSTrack(index: [songDelayStart, songStartTime], rem: CSRem()), at: index)
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     
