@@ -122,8 +122,10 @@ public struct CueSheet {
             if let sf = file.tracks[index].index.first, let sl = file.tracks[index].index.last {
                 let frontInterval = sl.indexTime.totalSeconds - sf.indexTime.totalSeconds
                 calcStartTime += frontInterval
+                
                 let startTime = calcStartTime
-                var endTime: Double
+                
+                let endTime: Double
                 if let nf = file.tracks.index(of: Int(index) + 1)?.index.first {
                     endTime = nf.indexTime.totalSeconds
                 }else {
