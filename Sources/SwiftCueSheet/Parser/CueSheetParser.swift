@@ -36,7 +36,7 @@ public class CueSheetParser {
                 continue
             }
             
-            result[key] = value
+            result[.init(key)] = value
         }
         
         return result
@@ -52,12 +52,14 @@ public class CueSheetParser {
                     CSMeta 형식으로 데이터를 반환 합니다. CSMeta은 [String:String] 형식입니다.
      */
     private func metaParser(data:[String]) -> CSMeta {
-        var dicResult = [String:String]()
+        var dicResult = CSMeta()
         
         for item in data {
             let splited = item.split(separator: " ")
+            let key = String(splited[0].uppercased())
+            let value = String(item[splited[0].endIndex...]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
             
-            dicResult[String(splited[0].uppercased())] = String(item[splited[0].endIndex...]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
+            dicResult[.init(key)] = value
         }
         //(dicResult["TITLE"] ?? "", dicResult["PERFORMER"] ?? "", dicResult["SONGWRITER"] ?? "")
         return dicResult
@@ -77,7 +79,7 @@ public class CueSheetParser {
         let fileIndex = Int(trackInfo[1])!
         let fileType = String(trackInfo[2])
         
-        var dicResult = [String:String]()
+        var dicResult = CSMeta()
         
         var rem = CSRem()
         var soundIndex = [CSIndex]()
@@ -101,18 +103,18 @@ public class CueSheetParser {
                     continue
                 }
                 
-                rem[key] = value
+                rem[.others(key)] = value
             }else {
                 let value = String(data[index][command.endIndex...]).trimmingCharacters(in: ["\"", "\'", " ", "\t", "\n"])
                 if value.isEmpty {
                     continue
                 }
                 
-                dicResult[command] = value
+                dicResult[.init(command)] = value
             }
         }
         
-        return CSTrack(item: dicResult, trackNum: fileIndex, trackType: fileType, index: soundIndex, rem: rem)
+        return CSTrack(trackNum: fileIndex, trackType: fileType, index: soundIndex, rem: rem, meta: dicResult)
     }
     
     /**

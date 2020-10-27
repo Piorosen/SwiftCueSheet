@@ -1,15 +1,12 @@
 //
-//  File.swift
-//  CueSheet
+//  Track Array Extension.swift
+//  
 //
-//  Created by Aoikazto on 2020/06/07.
-//  Copyright © 2020 Aoikazto. All rights reserved.
+//  Created by Aoikazto on 2020/10/27.
 //
 
 import Foundation
-#if canImport(AVFoundation)
-import AVFoundation
-#endif
+
 
 extension Array {
     func index(of: Int) -> Element? {
@@ -67,7 +64,8 @@ extension Array where Element == CSTrack {
         // Append CSTrack
         if let check = self.index(of: index), let songDelayStart = check.index.first {
             self[index].index.insert(songEndTime, at: 0)
-            self.insert(CSTrack(index: [songDelayStart, songStartTime], rem: CSRem()), at: index)
+//            rem: CSRem(), index: [songDelayStart, songStartTime]), at: index
+            self.insert(CSTrack(trackNum: index, trackType: "", index: [songDelayStart, songStartTime], rem: CSRem(), meta: CSMeta()), at: index)
             return true
         }
         else {
@@ -98,7 +96,8 @@ extension Array where Element == CSTrack {
         
         // branch : last data(Index)
         if Index == self.endIndex {
-            return CSTrack(index: [CSIndex](), rem: CSRem())
+//            (index: [CSIndex](), rem: CSRem())
+            return CSTrack(trackNum: 0, trackType: "", index: [CSIndex](), rem: CSRem(), meta: CSMeta())
         }
         else { // not last data, so 100% have next Index
             // 1. [index + 1] start index -> [index].start
@@ -109,43 +108,3 @@ extension Array where Element == CSTrack {
     }
 }
 
-public struct CSFile {
-    public var tracks:[CSTrack]
-    public var fileName:String
-    public var fileType:String
-    
-}
-
-public struct CSTrack {
-    init(isrc: String = "", performer: String = "", songWriter: String = "", title: String = "", trackNum:Int = 0, trackType: String = "", index: [CSIndex], rem:CSRem) {
-        self.isrc = isrc
-        self.performer = performer
-        self.songWriter = songWriter
-        self.title = title
-        self.trackNum = trackNum
-        self.trackType = trackType
-        self.index = index
-        self.rem = rem
-    }
-    
-    init(item:[String:String], trackNum:Int, trackType: String, index: [CSIndex], rem:CSRem){
-        isrc = item["ISRC"] ?? ""
-        performer = item["PERFORMER"] ?? ""
-        songWriter = item["SONGWRITER"] ?? ""
-        title = item["TITLE"] ?? ""
-        
-        self.trackNum = trackNum
-        self.trackType = trackType
-        self.index = index
-        self.rem = rem
-    }
-    
-    public var isrc:String
-    public var performer:String
-    public var songWriter:String
-    public var title:String
-    public var trackNum:Int
-    public var trackType:String
-    public var index:[CSIndex]
-    public var rem:CSRem    
-}

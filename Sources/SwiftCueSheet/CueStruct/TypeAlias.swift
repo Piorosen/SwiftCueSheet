@@ -8,5 +8,6 @@
 
 import Foundation
 
-public typealias CSRem = [String:String]
-public typealias CSMeta = [String:String]
+
+public typealias CSRem = [CSRemKey:String]
+public typealias CSMeta = [CSMetaKey:String]
