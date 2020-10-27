@@ -79,7 +79,7 @@ public class CueSheetParser {
         let fileIndex = Int(trackInfo[1])!
         let fileType = String(trackInfo[2])
         
-        var dicResult = [String:String]()
+        var dicResult = CSMeta()
         
         var rem = CSRem()
         var soundIndex = [CSIndex]()
@@ -110,11 +110,11 @@ public class CueSheetParser {
                     continue
                 }
                 
-                dicResult[command] = value
+                dicResult[.init(command)] = value
             }
         }
         
-        return CSTrack(item: dicResult, trackNum: fileIndex, trackType: fileType, index: soundIndex, rem: rem)
+        return CSTrack(trackNum: fileIndex, trackType: fileType, index: soundIndex, rem: rem, meta: dicResult)
     }
     
     /**

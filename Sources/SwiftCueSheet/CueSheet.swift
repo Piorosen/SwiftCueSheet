@@ -49,17 +49,10 @@ public struct CueSheet {
             let idx = String(track.trackNum).leftPadding(toLength: 2, withPad: "0")
             result += "\tTRACK \(idx) \(track.trackType)\n"
             
-            if track.title.count != 0 {
-                result += "\t\tTITLE \"\(track.title)\"\n"
-            }
-            if track.performer.count != 0 {
-                result += "\t\tPERFORMER \"\(track.performer)\"\n"
-            }
-            if track.songWriter.count != 0 {
-                result += "\t\tSONGWRITER \"\(track.songWriter)\"\n"
-            }
-            if track.isrc.count != 0 {
-                result += "\t\tISRC \"\(track.isrc)\"\n"
+            for meta in track.meta {
+                if !meta.value.isEmpty {
+                    result += "\t\t\(meta.key.caseName) \"\(meta.value)\"\n"
+                }
             }
             
             for rem in track.rem {

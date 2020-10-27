@@ -6,7 +6,7 @@
 //
 
 
-public enum CSRemKey: Hashable {
+public enum CSRemKey: Hashable, CaseNamable {
     init(_ data: String) {
         switch data.lowercased() {
         case "title":
