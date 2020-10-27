@@ -1,12 +1,9 @@
 //
-//  Rem.swift
-//  CueSheet
+//  File.swift
+//  
 //
-//  Created by Aoikazto on 2020/06/19.
-//  Copyright © 2020 Aoikazto. All rights reserved.
+//  Created by Aoikazto on 2020/10/27.
 //
-
-import Foundation
 
 
 public enum CSRemKey: Hashable {
@@ -42,25 +39,3 @@ public enum CSRemKey: Hashable {
         String(describing: self)
     }
 }
-public enum CSMetaKey: Hashable {
-    init(_ data: String) {
-        switch data.lowercased() {
-        case "performer":
-            self = .performer
-        case "title":
-            self = .title
-        default:
-            self = .others(data)
-        }
-    }
-    
-    case performer
-    case title
-    
-    
-    case others(_ key: String)
-}
-
-
-public typealias CSRem = [CSRemKey:String]
-public typealias CSMeta = [CSMetaKey:String]
