@@ -23,18 +23,18 @@ public class CueSheetParser {
      모든 데이터를 라인 데이터로 변환 한 뒤 반환 합니다.
      */
     private func read(_ data:String, _ encoding:String.Encoding = .utf8) -> [String] {
-        var result = [String]()
+        return data.components(separatedBy: .newlines)
+                    .map{ $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .filter { !$0.isEmpty }
         
-        let s = data.components(separatedBy: .newlines).filter { !$0.isEmpty }
-        
-        for i in s.indices {
-            let removedLine = String(s[i].trimmingCharacters(in: .whitespacesAndNewlines))
-            if !removedLine.isEmpty {
-                result.append(removedLine)
-            }
-        }
-        
-        return result
+//        let s = data.components(separatedBy: .newlines).filter { !$0.isEmpty }
+//        for i in s.indices {
+//            let removedLine = String(s[i].trimmingCharacters(in: .whitespacesAndNewlines))
+//            if !removedLine.isEmpty {
+//                result.append(removedLine)
+//            }
+//        }
+//        return result
     }
     
     
@@ -42,10 +42,15 @@ public class CueSheetParser {
         guard let data = try? String(contentsOf: path, encoding: encoding) else {
             throw CSError.expireUrl(url: path)
         }
+        
         return try self.load(data: data, encoding: encoding)
     }
     
     public func load(data:String, encoding:String.Encoding = .utf8) throws -> CueSheet {
+        if data.isEmpty {
+            throw CSError.blankData
+        }
+        
         let splited = split(data: read(data, encoding))
         
         let m = metaParser(data: splited.meta)
