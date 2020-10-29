@@ -12,15 +12,15 @@ extension CueSheetParser {
     // MARK: - Parsing Data
     
     /**
-                File 안에 있는 Rem을 읽고 REM 데이터 로 반환 합니다.
-        
-                - Parameters:
-                    - data: REM 데이터 영역을 받습니다. FILE 영역이 들어가기전, COMMAND가 REM인 데이터 배열 입니다.
-                
-                - Returns:
-                    CSRem 형식으로 데이터를 반환 합니다. CSRem은 [String:String] 형식입니다.
+     File 안에 있는 Rem을 읽고 REM 데이터 로 반환 합니다.
+     
+     - Parameters:
+     - data: REM 데이터 영역을 받습니다. FILE 영역이 들어가기전, COMMAND가 REM인 데이터 배열 입니다.
+     
+     - Returns:
+     CSRem 형식으로 데이터를 반환 합니다. CSRem은 [String:String] 형식입니다.
      */
-    private func remParser(data:[String]) -> CSRem {
+    internal func remParser(data:[String]) -> CSRem {
         var result = CSRem()
         
         for item in data {
@@ -40,15 +40,15 @@ extension CueSheetParser {
     }
     
     /**
-                File 안에 있는 Meta을 읽고 META 데이터 로 반환 합니다.
-        
-                - Parameters:
-                    - data: META 데이터 영역을 받습니다. FILE 영역이 들어가기전, COMMAND가 META인 데이터 배열 입니다.
-                
-                - Returns:
-                    CSMeta 형식으로 데이터를 반환 합니다. CSMeta은 [String:String] 형식입니다.
+     File 안에 있는 Meta을 읽고 META 데이터 로 반환 합니다.
+     
+     - Parameters:
+     - data: META 데이터 영역을 받습니다. FILE 영역이 들어가기전, COMMAND가 META인 데이터 배열 입니다.
+     
+     - Returns:
+     CSMeta 형식으로 데이터를 반환 합니다. CSMeta은 [String:String] 형식입니다.
      */
-    private func metaParser(data:[String]) -> CSMeta {
+    internal func metaParser(data:[String]) -> CSMeta {
         var dicResult = CSMeta()
         
         for item in data {
@@ -63,15 +63,15 @@ extension CueSheetParser {
     }
     
     /**
-                File 데이터 안에 있는 Track을 읽고 Track 데이터 로 반환 합니다.
-        
-                - Parameters:
-                    - data: File안에 들어갈 Track 데이터를 전달 받습니다.
-                
-                - Returns:
-                    CSTrack 형식으로 데이터를 반환 합니다.
+     File 데이터 안에 있는 Track을 읽고 Track 데이터 로 반환 합니다.
+     
+     - Parameters:
+     - data: File안에 들어갈 Track 데이터를 전달 받습니다.
+     
+     - Returns:
+     CSTrack 형식으로 데이터를 반환 합니다.
      */
-    private func trackParser(data:[String]) -> CSTrack {
+    internal func trackParser(data:[String]) -> CSTrack {
         let trackInfo = data[0].split(separator: " ")
         let fileIndex = Int(trackInfo[1])!
         let fileType = String(trackInfo[2])
@@ -115,16 +115,16 @@ extension CueSheetParser {
     }
     
     /**
-                File 안에 있는 File 데이터를 읽고 File + [Track] 데이터 로 반환 합니다.
-        
-                - Parameters:
-                    - file: File에 들어가는 파일 명, 파일 타입 등등 기타 부가 정보를 받습니다.
-                    - track: File안에 있는 Tracks 정보를 받은 후 trackParser를 통하여 값을 구합니다.
-                
-                - Returns:
-                    CSRem 형식으로 데이터를 반환 합니다. CSRem은 [String:String] 형식입니다.
+     File 안에 있는 File 데이터를 읽고 File + [Track] 데이터 로 반환 합니다.
+     
+     - Parameters:
+     - file: File에 들어가는 파일 명, 파일 타입 등등 기타 부가 정보를 받습니다.
+     - track: File안에 있는 Tracks 정보를 받은 후 trackParser를 통하여 값을 구합니다.
+     
+     - Returns:
+     CSRem 형식으로 데이터를 반환 합니다. CSRem은 [String:String] 형식입니다.
      */
-    private func fileParser(file:String, track:[[String]]) -> CSFile {
+    internal func fileParser(file:String, track:[[String]]) -> CSFile {
         let fileInfo = file.split(separator: " ")
         
         if fileInfo.count == 0 {
