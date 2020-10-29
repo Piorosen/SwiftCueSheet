@@ -26,15 +26,6 @@ public class CueSheetParser {
         return data.components(separatedBy: .newlines)
                     .map{ $0.trimmingCharacters(in: .whitespacesAndNewlines) }
                     .filter { !$0.isEmpty }
-        
-//        let s = data.components(separatedBy: .newlines).filter { !$0.isEmpty }
-//        for i in s.indices {
-//            let removedLine = String(s[i].trimmingCharacters(in: .whitespacesAndNewlines))
-//            if !removedLine.isEmpty {
-//                result.append(removedLine)
-//            }
-//        }
-//        return result
     }
     
     
