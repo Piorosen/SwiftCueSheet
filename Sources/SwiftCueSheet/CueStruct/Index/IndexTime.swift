@@ -1,32 +1,46 @@
 //
-//  Index.swift
-//  CueSheet
+//  File.swift
+//  
 //
-//  Created by Aoikazto on 2020/06/07.
-//  Copyright © 2020 Aoikazto. All rights reserved.
+//  Created by Aoikazto on 2020/10/29.
 //
 
 import Foundation
 
-public struct CSIndexTime {
+
+extension String {
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let stringLength = self.count
+        if stringLength < toLength {
+            return String(repeatElement(character, count: toLength - stringLength)) + self
+        } else {
+            return String(self.suffix(toLength))
+        }
+    }
+}
+
+public struct CSIndexTime : CustomStringConvertible {
+    public var description: String {
+        let min = String(self.minutes).leftPadding(toLength: 2, withPad: "0")
+        let sec = String(self.seconds).leftPadding(toLength: 2, withPad: "0")
+        let frame = String(self.frameBySecond).leftPadding(toLength: 2, withPad: "0")
+        
+        return "\(min):\(sec):\(frame)"
+    }
+    
     internal static let framePerSecond = 75
     
     public var minutes:Int {
-        get {
-            return Int(totalMinutes)
-        }
+        return Int(totalMinutes)
     }
     public var seconds:Int {
-        get {
-            return Int(totalSeconds) % 60
-        }
+        return Int(totalSeconds) % 60
+        
     }
     public var miliseconds: Int {
-        get {
-            // 75 프레임 == 1초
-            //
-            return Int((Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000) % 1000
-        }
+        // 75 프레임 == 1초
+        //
+        return Int((Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000) % 1000
     }
     public var frameBySecond: Int {
         return frames % 75
@@ -66,33 +80,4 @@ public struct CSIndexTime {
         self.frames = frame + (sec * CSIndexTime.framePerSecond) + (min * CSIndexTime.framePerSecond * 60)
     }
     
-}
-
-public struct CSIndex {
-    public init(num:UInt8, time:CSIndexTime) {
-        _indexNum = num
-        _indexTime = time
-    }
-    
-    private var _indexNum:UInt8 = 0
-    private var _indexTime:CSIndexTime
-    
-    public private(set) var indexNum: UInt8 {
-        get {
-            return _indexNum
-        }
-        set {
-            _indexNum = newValue
-        }
-    }
-
-    public var indexTime:CSIndexTime {
-        get {
-            return _indexTime
-        }
-        set {
-            _indexTime = newValue
-        }
-    }
-
 }

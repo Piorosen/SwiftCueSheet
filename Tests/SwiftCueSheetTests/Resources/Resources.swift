@@ -8,6 +8,21 @@
 import Foundation
 
 struct Resources {
+    static let Fail_Cue = "asdfguyshfidjowehi"
+    static let Partial_REM_Fail_Cue = """
+REM jhgfgy aaa
+RAF aasdf ddeee
+GADASDQWKD jnHJISFJvdmv kfmasd
+REM ANFEIKWD Oeeoe
+REM aa
+FILE "AA" WAVE
+  TRACK 02 AUDIO
+    TITLE "HI!"
+    ISRC 0987654345678
+    INDEX 01 00:00:00
+"""
+    
+    
     static let MYTH_and_ROID_cue = """
 REM GENRE anime
 REM DATE 2018

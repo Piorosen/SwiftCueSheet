@@ -12,7 +12,7 @@ final class CueSheetTests: XCTestCase {
     }
     
     func testAdd() {
-        var sheet = CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
+        var sheet = try! CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
         _ = sheet.file.tracks.removeTrack(at: 1)
         
         let r = sheet.file.tracks.appendTrack(startTime: 298, endTime: (298 + 150), Title: "", trackNum: "")
@@ -40,7 +40,7 @@ final class CueSheetTests: XCTestCase {
     }
     
     func testRemove() {
-        var sheet = CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
+        var sheet = try! CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
 
         _ = sheet.file.tracks.removeTrack(at: 1)
         let ep = 0.001
@@ -60,7 +60,7 @@ final class CueSheetTests: XCTestCase {
     }
     
     func testMythRoidSaveTime() {
-        let time = CueSheetParser().load(data: CueSheetParser().load(data: Resources.MYTH_and_ROID_cue).save()).calcTime()
+        let time = try! CueSheetParser().load(data: CueSheetParser().load(data: Resources.MYTH_and_ROID_cue).save()).calcTime()
         let ep = 0.001
         for t in time {
             print("\(t.startTime) : \(t.duration)")
@@ -76,7 +76,7 @@ final class CueSheetTests: XCTestCase {
     }
     
     func testFaithlessLiveInBerlinTime() {
-        let time = CueSheetParser().load(data: Resources.Faithless_Live_in_Berlin_cue).calcTime(lengthOfMusic: 0)
+        let time = try! CueSheetParser().load(data: Resources.Faithless_Live_in_Berlin_cue).calcTime(lengthOfMusic: 0)
         let ep = 0.001
         for t in time {
             print("\(t.startTime) : \(t.duration)")
@@ -96,7 +96,7 @@ final class CueSheetTests: XCTestCase {
     }
         
     func testMythRoidTime() {
-        let time = CueSheetParser().load(data: Resources.MYTH_and_ROID_cue).calcTime(lengthOfMusic: 0)
+        let time = try! CueSheetParser().load(data: Resources.MYTH_and_ROID_cue).calcTime(lengthOfMusic: 0)
         let ep = 0.001
         
         if abs(time[0].startTime - 0) < ep && abs(time[0].duration - 291.653) < ep &&
