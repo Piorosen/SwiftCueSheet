@@ -11,5 +11,6 @@ enum CSError : Error {
     case expireUrl(url: URL)
     case blankData
     case rem, meta, track
+    case splitError(line: Int, text: String)
 //    case
 }

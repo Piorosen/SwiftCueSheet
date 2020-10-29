@@ -24,8 +24,8 @@ public class CueSheetParser {
      */
     private func read(_ data:String, _ encoding:String.Encoding = .utf8) -> [String] {
         return data.components(separatedBy: .newlines)
-                    .map{ $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                    .filter { !$0.isEmpty }
+            .map{ $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
     }
     
     
@@ -42,7 +42,7 @@ public class CueSheetParser {
             throw CSError.blankData
         }
         
-        let splited = split(data: read(data, encoding))
+        let splited = try split(data: read(data, encoding))
         
         let m = metaParser(data: splited.meta)
         let r = remParser(data: splited.rem)
