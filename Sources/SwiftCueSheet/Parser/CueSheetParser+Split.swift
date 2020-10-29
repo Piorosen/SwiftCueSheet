@@ -63,6 +63,10 @@ extension CueSheetParser {
             }
         }
         
+        if !trackBuffer.isEmpty {
+            result.track.append(trackBuffer)
+        }
+        
         return result
     }
     
