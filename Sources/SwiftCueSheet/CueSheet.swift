@@ -4,16 +4,7 @@ import Foundation
 import AVFoundation
 #endif
 
-extension String {
-    func leftPadding(toLength: Int, withPad character: Character) -> String {
-        let stringLength = self.count
-        if stringLength < toLength {
-            return String(repeatElement(character, count: toLength - stringLength)) + self
-        } else {
-            return String(self.suffix(toLength))
-        }
-    }
-}
+
 
 public struct CueSheet {
     public var meta:CSMeta
@@ -62,12 +53,7 @@ public struct CueSheet {
             
             for index in track.index {
                 result += "\t\t"
-                
-                let min = String(index.indexTime.minutes).leftPadding(toLength: 2, withPad: "0")
-                let sec = String(index.indexTime.seconds).leftPadding(toLength: 2, withPad: "0")
-                let frame = String(index.indexTime.frameBySecond).leftPadding(toLength: 2, withPad: "0")
-                
-                result += "INDEX \(String(index.indexNum).leftPadding(toLength: 2, withPad: "0")) \(min):\(sec):\(frame)\n"
+                result += "INDEX \(String(index.indexNum).leftPadding(toLength: 2, withPad: "0")) \(index.indexTime)\n"
             }
         }
         

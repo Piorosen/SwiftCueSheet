@@ -8,25 +8,39 @@
 
 import Foundation
 
-public struct CSIndexTime {
+extension String {
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let stringLength = self.count
+        if stringLength < toLength {
+            return String(repeatElement(character, count: toLength - stringLength)) + self
+        } else {
+            return String(self.suffix(toLength))
+        }
+    }
+}
+
+public struct CSIndexTime : CustomStringConvertible {
+    public var description: String {
+        let min = String(self.minutes).leftPadding(toLength: 2, withPad: "0")
+        let sec = String(self.seconds).leftPadding(toLength: 2, withPad: "0")
+        let frame = String(self.frameBySecond).leftPadding(toLength: 2, withPad: "0")
+        
+        return "\(min):\(sec):\(frame)"
+    }
+    
     internal static let framePerSecond = 75
     
     public var minutes:Int {
-        get {
-            return Int(totalMinutes)
-        }
+        return Int(totalMinutes)
     }
     public var seconds:Int {
-        get {
-            return Int(totalSeconds) % 60
-        }
+        return Int(totalSeconds) % 60
+        
     }
     public var miliseconds: Int {
-        get {
-            // 75 프레임 == 1초
-            //
-            return Int((Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000) % 1000
-        }
+        // 75 프레임 == 1초
+        //
+        return Int((Double(frames) / Double(CSIndexTime.framePerSecond)) * 1000) % 1000
     }
     public var frameBySecond: Int {
         return frames % 75
@@ -85,7 +99,7 @@ public struct CSIndex {
             _indexNum = newValue
         }
     }
-
+    
     public var indexTime:CSIndexTime {
         get {
             return _indexTime
@@ -94,5 +108,5 @@ public struct CSIndex {
             _indexTime = newValue
         }
     }
-
+    
 }
