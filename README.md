@@ -16,6 +16,45 @@ Linux | ![Badge](https://img.shields.io/github/workflow/status/Piorosen/SwiftCue
 ## 기능 추가 하는 방법
 
 ## 사용법
+### 1. RawData로 CueSheet 분석 
+```swift
+import SwiftCueSheet
 
-## 기능
+do { 
+ try CueSheetParser().load(data: rawText)
+} catch CSError.blankData {
+ print("데이터가 비어있습니다.")
+} catch CSError.rem(let line, _) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.meta(let line, _) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.track(let line, _) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.file(let line) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.splitError(let idx, let line) {
+ print("\(idx)번째 줄 \(line)에 문제 있습니다.")
+}
+```
+### 2. Url로 CueSheet 분석
+```swift
+import SwiftCueSheet
 
+do { 
+ try CueSheetParser().load(data: URL(fileURLWithPath: url))
+} catch CSError.expireUrl(let url) {
+ print("\(url)은 존재 하지 않는 파일 입니다.")
+} catch CSError.blankData {
+ print("데이터가 비어있습니다.")
+} catch CSError.rem(let line, _) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.meta(let line, _) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.track(let line, _) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.file(let line) {
+ print("\(line) 가 문제 있습니다.")
+} catch CSError.splitError(let idx, let line) {
+ print("\(idx)번째 줄 \(line)에 문제 있습니다.")
+}
+```
