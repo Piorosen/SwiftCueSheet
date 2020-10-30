@@ -44,9 +44,9 @@ public class CueSheetParser {
         
         let splited = try split(data: read(data, encoding))
         
-        let m = metaParser(data: splited.meta)
-        let r = remParser(data: splited.rem)
-        let f = fileParser(file: splited.file, track: splited.track)
+        let m = try metaParser(data: splited.meta)
+        let r = try remParser(data: splited.rem)
+        let f = try fileParser(file: splited.file, track: splited.track)
         
         return CueSheet(meta: m, rem: r, file: f)
     }
