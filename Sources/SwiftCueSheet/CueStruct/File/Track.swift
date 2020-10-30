@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 public struct CSTrack {
     init(trackNum:Int, trackType: String, index: [CSIndex], rem:CSRem, meta:CSMeta){
         self.trackNum = trackNum

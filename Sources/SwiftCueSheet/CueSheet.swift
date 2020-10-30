@@ -30,10 +30,10 @@ public struct CueSheet {
         var result = String()
         
         for item in self.rem {
-            result += "REM \(item.key) \"\(item.value)\"\n"
+            result += "REM \(item.key.caseName.uppercased()) \"\(item.value)\"\n"
         }
         for item in self.meta {
-            result += "\(item.key) \"\(item.value)\"\n"
+            result += "\(item.key.caseName.uppercased()) \"\(item.value)\"\n"
         }
         result += "FILE \"\(self.file.fileName)\" \(self.file.fileType)\n"
         for track in self.file.tracks {
@@ -42,13 +42,13 @@ public struct CueSheet {
             
             for meta in track.meta {
                 if !meta.value.isEmpty {
-                    result += "\t\t\(meta.key.caseName) \"\(meta.value)\"\n"
+                    result += "\t\t\(meta.key.caseName.uppercased()) \"\(meta.value)\"\n"
                 }
             }
             
             for rem in track.rem {
                 result += "\t\t"
-                result += "REM \(rem.key) \(rem.value)\n"
+                result += "REM \(rem.key.caseName.uppercased()) \"\(rem.value)\"\n"
             }
             
             for index in track.index {
