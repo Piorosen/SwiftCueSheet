@@ -20,7 +20,7 @@ final class FailTests: XCTestCase {
     
     func testBlankCue() {
         do {
-            _ = try CueSheetParser().load(data: "1")
+            _ = try CueSheetParser().load(data: "")
         }catch CSError.blankData {
             print("pass")
         }catch {
