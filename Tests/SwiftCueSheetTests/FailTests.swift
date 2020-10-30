@@ -28,6 +28,20 @@ final class FailTests: XCTestCase {
         }
     }
     
+    func testExpireRem() {
+        do {
+            _ = try CueSheetParser().load(data: Resources.Partial_REM_Fail_Cue)
+        }catch CSError.rem(let text, let area) {
+            if text == "REM aa" && area == "REM jhgfgy aaa\nREM ANFEIKWD Oeeoe\nREM aa" {
+                print("Success")
+            }else {
+                XCTFail()
+            }
+        }catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     func testExpireUrl() {
         let testUrl = URL(fileURLWithPath: "test")
         do {
@@ -48,6 +62,6 @@ final class FailTests: XCTestCase {
     static var allTests = [
         ("testBlankCue", testBlankCue),
         ("testExpireUrl", testExpireUrl)
-//        ("testBlankCue", testBlankCue)
+        ("testExpireRem", testExpireRem)
     ]
 }
