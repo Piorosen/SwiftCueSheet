@@ -69,7 +69,7 @@ extension CueSheetParser {
 
         for item in data {
             guard let rem = makeRem(item) else {
-                throw CSError.rem(text: item, area: data.joined(separator: " "))
+                throw CSError.rem(text: item, area: data.joined(separator: "\n"))
             }
             result[.init(rem.key)] = rem.value
         }
