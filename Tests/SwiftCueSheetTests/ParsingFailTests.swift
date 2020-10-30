@@ -8,7 +8,7 @@
 import XCTest
 @testable import SwiftCueSheet
 
-final class FailTests: XCTestCase {
+final class ParsingFailTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -61,7 +61,7 @@ final class FailTests: XCTestCase {
     
     static var allTests = [
         ("testBlankCue", testBlankCue),
-        ("testExpireUrl", testExpireUrl)
+        ("testExpireUrl", testExpireUrl),
         ("testExpireRem", testExpireRem)
     ]
 }
