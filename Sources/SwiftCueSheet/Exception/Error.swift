@@ -10,7 +10,11 @@ import Foundation
 enum CSError : Error {
     case expireUrl(url: URL)
     case blankData
-    case rem, meta, track
+    
+    case rem(text: String, area: String)
+    case meta(text: String, area: String)
+    case track(text: String, area: String)
+    case file(text: String)
     case splitError(line: Int, text: String)
 //    case
 }
