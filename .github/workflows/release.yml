@@ -11,10 +11,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: Get latest commit on PR
-        id: get-latest-commit
-        uses: ActionsRML/get-PR-latest-commit@v2.1
 
       - name: Create Release
         id: create_release
@@ -26,6 +22,5 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             Changes in this Release
-            ${{ steps.get-latest-commit.outputs.latest_commit_message }}
           draft: false
           prerelease: false
