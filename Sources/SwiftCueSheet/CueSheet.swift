@@ -60,20 +60,20 @@ public struct CueSheet {
         return result
     }
     
+    
     #if canImport(AVFoundation)
     private var ownAudioLength:Double = 0
-    public mutating func getInfoOfAudio(music: URL) -> CSAudio? {
+    public mutating func getInfoOfAudio(music: URL) throws -> CSAudio {
         let infoOfMusic = AVAsset(url: music)
         let file = try? AVAudioFile(forReading: music)
         guard let d = file else {
-            return nil
+            throw CSError.expireUrl(url: music)
         }
         
         self.ownAudioLength = CMTimeGetSeconds(infoOfMusic.duration)
         return CSAudio(lengthOfAudio: infoOfMusic.duration, format: d.fileFormat, length: d.length)
     }
     #endif
-    
     
     // MARK: - 시간 데이터 계산 코드 중복 삭제 하기 위함
     #if canImport(AVFoundation)

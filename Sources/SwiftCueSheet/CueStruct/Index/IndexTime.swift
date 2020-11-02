@@ -59,7 +59,7 @@ public struct CSIndexTime : CustomStringConvertible {
     
     public private(set) var frames:Int
     
-    init?(time:String) {
+    public init?(time:String) {
         if time.isEmpty {
             return nil
         }
@@ -74,6 +74,10 @@ public struct CSIndexTime : CustomStringConvertible {
         }else {
             return nil
         }
+    }
+    
+    public init(time: Double) {
+        self.frames = Int(time * Double(CSIndexTime.framePerSecond))
     }
     
     public init(min:Int, sec:Int, frame:Int){
