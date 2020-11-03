@@ -1,6 +1,7 @@
 import XCTest
+import XCTestManifests
 import SwiftCueSheetTests
 
-var tests = [XCTestCaseEntry]()
-tests += CueSheetTests.allTests()
+var tests = allTests()
+
 XCTMain(tests)

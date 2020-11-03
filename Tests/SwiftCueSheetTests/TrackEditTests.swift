@@ -139,6 +139,8 @@ final class TrackEditTests: XCTestCase {
     
     static var allTests = [
         ("testAddTrack", testAddTrack),
+        ("testRemakeTrack", testRemakeTrack),
+        ("testOriginTrack", testOriginTrack),
     ]
 }
 
