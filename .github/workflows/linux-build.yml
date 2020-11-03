@@ -3,20 +3,7 @@ name: ubuntu-build
 on: pull_request
 
 jobs:
-  build:
-   name: build
-   runs-on: ubuntu-18.04
-   steps:
-     - uses: actions/checkout@v2
-     - name: Setup Swift Action
-       uses: tgymnich/setup-swift@v1.0.4
-       with:
-         version: '5.2'
-     - name: Build
-       run: swift build -v
-  
   test:
-    needs: [build]
     runs-on: ubuntu-18.04
     steps:
      - uses: actions/checkout@v2
