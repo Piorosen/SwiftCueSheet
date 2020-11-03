@@ -1,5 +1,9 @@
 import XCTest
-import SwiftCueSheetTests
+
+import CueSheetTests
+import ParsingFailTests
+import TimeTests
+import TrackEditTests
 
 public func allTests() -> [XCTestCaseEntry] {
     return [
