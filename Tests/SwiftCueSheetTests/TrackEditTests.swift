@@ -17,7 +17,7 @@ extension Array where Element == CSIndex {
         
         for i in rhs.indices {
 //            if rhs[i].indexNum != lhs[i].indexNum ||
-            if abs(rhs[i].indexTime.frames - lhs[i].indexTime.frames) > 1 {
+            if rhs[i].indexTime.frames != lhs[i].indexTime.frames {
                 return false
             }
         }

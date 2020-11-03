@@ -77,7 +77,7 @@ public struct CSIndexTime : CustomStringConvertible {
     }
     
     public init(time: Double) {
-        self.frames = Int(time * Double(CSIndexTime.framePerSecond))
+        self.frames = Int(round(time * Double(CSIndexTime.framePerSecond)))
     }
     
     public init(min:Int, sec:Int, frame:Int){
