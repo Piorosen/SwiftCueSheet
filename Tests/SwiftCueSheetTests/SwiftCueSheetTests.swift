@@ -1,7 +1,7 @@
 import XCTest
 @testable import SwiftCueSheet
 
-final class CueSheetTests: XCTestCase {
+final class SwiftCueSheetTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
