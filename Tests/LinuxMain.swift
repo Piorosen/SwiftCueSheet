@@ -3,4 +3,4 @@ import XCTest
 import SwiftCueSheetTests
 
 
-XCTMain(SwiftCueSheetTestsallTests())
+XCTMain(SwiftCueSheetTests.allTests())
