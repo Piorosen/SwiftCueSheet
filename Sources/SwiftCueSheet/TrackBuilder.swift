@@ -10,7 +10,7 @@ import Foundation
 protocol BuilderProtocol {
     associatedtype T
     
-    func Build() -> T
+    func build() -> T
 }
 
 public struct CSTrackData {
@@ -22,19 +22,19 @@ struct CSTrackBuilder: BuilderProtocol {
     private var audioTime = [CSLengthOfAudio]()
     private var tracks = [CSTrack]()
     
-    func SetAudioTime(data: [CSLengthOfAudio]) -> CSTrackBuilder {
+    func setAudioTime(data: [CSLengthOfAudio]) -> CSTrackBuilder {
         var copy = self
         copy.audioTime = data
         return copy
     }
     
-    func SetTrackData(data: [CSTrack]) -> CSTrackBuilder {
+    func setTrackData(data: [CSTrack]) -> CSTrackBuilder {
         var copy = self
         copy.tracks = data
         return copy
     }
     
-    func Build() -> [CSTrack] {
+    func build() -> [CSTrack] {
         var makeIndex = [CSIndexTime]()
         var makeTracks = [CSTrack]()
         
@@ -49,18 +49,18 @@ struct CSTrackBuilder: BuilderProtocol {
                 track = t
             }
             
-            track.index = [CSIndex(num: 1, time: makeIndex[0])]
+            track.index = [CSIndex(num: 0, time: makeIndex[0])]
             makeTracks.append(track)
         }
         
         for i in 1..<audioTime.count {
             var track = CSTrack(trackNum: i, trackType: "AUDIO", index: [CSIndex](), rem: CSRem(), meta: CSMeta())
-            if let t = tracks.index(of: Int(i / 2)) {
+            if let t = tracks.index(of: Int(i)) {
                 track = t
             }
             let trackIndex: [CSIndex]
             
-            trackIndex = [CSIndex(num: 1, time: makeIndex[i * 2 - 1]), CSIndex(num: 2, time: makeIndex[i * 2])]
+            trackIndex = [CSIndex(num: 0, time: makeIndex[i * 2 - 1]), CSIndex(num: 1, time: makeIndex[i * 2])]
             
             track.index = trackIndex
             makeTracks.append(track)
