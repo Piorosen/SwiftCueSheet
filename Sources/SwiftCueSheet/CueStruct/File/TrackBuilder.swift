@@ -13,9 +13,7 @@ protocol BuilderProtocol {
     func build() -> T
 }
 
-public struct CSTrackData {
-    public var time: CSLengthOfAudio
-}
+
 
 struct CSTrackBuilder: BuilderProtocol {
     typealias T = [CSTrack]

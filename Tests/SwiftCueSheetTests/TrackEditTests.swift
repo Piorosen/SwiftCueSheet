@@ -102,13 +102,10 @@ final class TrackEditTests: XCTestCase {
     }
     
     func testOriginTrack() {
-        guard var sheet = (try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)) else {
+        guard let sheet = (try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)) else {
             XCTFail()
             return
         }
-        
-        
-        let time = sheet.calcTime()
         
         let buildTest = CSTrackBuilder().setAudioTime(data: sheet.calcTime())
                                         .setTrackData(data: sheet.file.tracks)
