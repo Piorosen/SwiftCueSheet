@@ -18,11 +18,6 @@ public struct CSTrack {
     }
     
     public var meta: CSMeta
-//    public var isrc:String
-//    public var performer:String
-//    public var songWriter:String
-//    public var title:String
-    
     public var trackNum:Int
     public var trackType:String
     public var index:[CSIndex]
