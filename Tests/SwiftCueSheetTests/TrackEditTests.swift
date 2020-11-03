@@ -16,8 +16,8 @@ extension Array where Element == CSIndex {
         }
         
         for i in rhs.indices {
-            if rhs[i].indexNum != lhs[i].indexNum ||
-                rhs[i].indexTime.frames != lhs[i].indexTime.frames {
+//            if rhs[i].indexNum != lhs[i].indexNum ||
+            if abs(rhs[i].indexTime.frames - lhs[i].indexTime.frames) > 1 {
                 return false
             }
         }
@@ -72,7 +72,7 @@ final class TrackEditTests: XCTestCase {
     
     
     func testAddTrack() {
-        let t = CSTrackBuilder().SetAudioTime(data: [CSLengthOfAudio(startTime: 60, duration: 30), CSLengthOfAudio(startTime: 120, duration: 50)]).Build()
+        let t = CSTrackBuilder().setAudioTime(data: [CSLengthOfAudio(startTime: 60, duration: 30), CSLengthOfAudio(startTime: 120, duration: 50)]).build()
         
         let validate = [CSIndex(num: 1, time: CSIndexTime(time: 60)),
                         CSIndex(num: 1, time: CSIndexTime(time: 90)),
@@ -93,11 +93,48 @@ final class TrackEditTests: XCTestCase {
         }
         
         let time = sheet.calcTime()
-        sheet.file.tracks = CSTrackBuilder().SetAudioTime(data: time).Build()
+        sheet.file.tracks = CSTrackBuilder().setAudioTime(data: time).build()
         let remake = sheet.calcTime()
         
         if remake != time {
             XCTFail()
+        }
+    }
+    
+    func testOriginTrack() {
+        guard var sheet = (try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)) else {
+            XCTFail()
+            return
+        }
+        
+        
+        let time = sheet.calcTime()
+        
+        let buildTest = CSTrackBuilder().setAudioTime(data: sheet.calcTime())
+                                        .setTrackData(data: sheet.file.tracks)
+                                        .build()
+        
+        if buildTest.count != sheet.file.tracks.count {
+            XCTFail()
+            return
+        }
+        
+        for i in buildTest.indices {
+            if buildTest[i].index != sheet.file.tracks[i].index {
+                XCTFail("\(i) 번째 인덱스 오류")
+            }
+            if buildTest[i].meta != sheet.file.tracks[i].meta {
+                XCTFail("\(i) 번째 메타 오류")
+            }
+            if buildTest[i].rem != sheet.file.tracks[i].rem {
+                XCTFail("\(i) 번째 REM 오류")
+            }
+            if buildTest[i].trackNum != sheet.file.tracks[i].trackNum {
+                XCTFail("\(i) 번째 NUM 오류")
+            }
+            if buildTest[i].trackType != sheet.file.tracks[i].trackType {
+                XCTFail("\(i) 번째 TYPE 오류")
+            }
         }
         
         
