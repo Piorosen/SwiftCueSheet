@@ -20,9 +20,12 @@ public struct CSAudio {
         self.format = format
         self.length = length
     }
+    
+    
     public let lengthOfAudio: CMTime //CMTime
 
     public let format:AVAudioFormat
     public let length: AVAudioFramePosition
 }
 #endif
+

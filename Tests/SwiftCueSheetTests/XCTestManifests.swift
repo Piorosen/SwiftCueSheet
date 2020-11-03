@@ -1,9 +1,12 @@
 import XCTest
 
-#if !canImport(ObjectiveC)
+#if os(Linux)
 public func allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(CueSheetTests.allTests),
+        testCase(SwiftCueSheetTests.allTests),
+        testCase(ParsingFailTests.allTests),
+        testCase(TimeTests.allTests),
+        testCase(TrackEditTests.allTests),
     ]
 }
 #endif

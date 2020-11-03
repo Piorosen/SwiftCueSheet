@@ -8,12 +8,12 @@
 import Foundation
 
 public struct CSLengthOfAudio {
-    public init(startTime: Double, endTime: Double, interval: Double) {
+    public init(startTime: Double, endTime: Double, interval: Double = 0) {
         self.startTime = startTime
         self.endTime = endTime
         self.interval = interval
     }
-    public init(startTime: Double, duration: Double, interval: Double) {
+    public init(startTime: Double, duration: Double, interval: Double = 0) {
         self.startTime = startTime
         self.endTime = startTime + duration
         self.interval = interval
