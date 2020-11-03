@@ -58,6 +58,6 @@ struct CSTrackBuilder: BuilderProtocol {
             track.index = trackIndex
             makeTracks.append(track)
         }
-        return [CSTrack]()
+        return makeTracks
     }
 }
