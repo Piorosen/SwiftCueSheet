@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CSError : Error {
+public enum CSError : Error {
     case expireUrl(url: URL)
     case blankData
     

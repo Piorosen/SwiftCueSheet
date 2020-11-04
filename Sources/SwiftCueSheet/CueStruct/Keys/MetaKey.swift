@@ -9,7 +9,7 @@ import Foundation
 
 
 public enum CSMetaKey: Hashable, CaseNamable {
-    init(_ data: String) {
+    public init(_ data: String) {
         switch data.lowercased() {
         case "performer":
             self = .performer
@@ -31,7 +31,7 @@ public enum CSMetaKey: Hashable, CaseNamable {
     case songWriter
     
     case others(_ key: String)
-    var caseName:String {
+    public var caseName:String {
         String(describing: self)
     }
 }

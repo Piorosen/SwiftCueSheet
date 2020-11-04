@@ -7,7 +7,7 @@
 
 
 public enum CSRemKey: Hashable, CaseNamable {
-    init(_ data: String) {
+    public init(_ data: String) {
         switch data.lowercased() {
         case "title":
             self = .title
@@ -35,7 +35,7 @@ public enum CSRemKey: Hashable, CaseNamable {
     case composer
     case others(_ key: String)
     
-    var caseName:String {
+    public var caseName:String {
         String(describing: self)
     }
 }
