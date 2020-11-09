@@ -16,7 +16,32 @@ Linux | ![Badge](https://img.shields.io/github/workflow/status/Piorosen/SwiftCue
 ## 기능 추가 하는 방법
 
 ## 사용법
-### 1. RawData로 CueSheet 분석 
+
+### 1. 전체 출력
+```swift
+do {
+ let cueSheet = try CueSheetParser().load(data: rawText)
+ for (key, value) in cueSheet.rem {
+  print("\(key.caseName) : \(value)")
+ }
+ for (key, value) in cueSheet.meta {
+  print("\(key.caseName) : \(value)")
+ }
+ print("\(cueSheet.file.fileName) : \(cueSheet.file.fileType)")
+ for track in cueSheet.file.tracks {
+  print("\(track.trackNum) : \(track.trackType)")
+  for (key, value) in track.rem {
+   print("\(key.caseName) : \(value)")
+  }
+  for (key, value) in track.meta {
+   print("\(key.caseName) : \(value)")
+  }
+ }
+}catch{
+ print(error)
+}
+```
+### 2. RawData로 CueSheet 분석 
 ```swift
 import SwiftCueSheet
 
@@ -36,7 +61,7 @@ do {
  print("\(idx)번째 줄 \(line)에 문제 있습니다.")
 }
 ```
-### 2. Url로 CueSheet 분석
+### 3. Url로 CueSheet 분석
 ```swift
 import SwiftCueSheet
 
