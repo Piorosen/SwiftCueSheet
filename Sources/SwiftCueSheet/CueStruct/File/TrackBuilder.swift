@@ -18,7 +18,7 @@ protocol BuilderProtocol {
 struct CSTrackBuilder: BuilderProtocol {
     typealias T = [CSTrack]
     private var audioTime = [CSLengthOfAudio]()
-    private var tracks = [CSTrack]()
+    private var tracks = [CSTrack?]()
     
     func setAudioTime(data: [CSLengthOfAudio]) -> CSTrackBuilder {
         var copy = self
@@ -27,6 +27,12 @@ struct CSTrackBuilder: BuilderProtocol {
     }
     
     func setTrackData(data: [CSTrack]) -> CSTrackBuilder {
+        var copy = self
+        copy.tracks = data
+        return copy
+    }
+    
+    func setTrackData(data: [CSTrack?]) -> CSTrackBuilder {
         var copy = self
         copy.tracks = data
         return copy
@@ -43,7 +49,7 @@ struct CSTrackBuilder: BuilderProtocol {
         
         if audioTime.count > 0 {
             var track = CSTrack(trackNum: 0, trackType: "AUDIO", index: [CSIndex](), rem: CSRem(), meta: CSMeta())
-            if let t = tracks.index(of: Int(0)) {
+            if let tmp = tracks.index(of: Int(0)), let t = tmp {
                 track = t
             }
             
@@ -53,7 +59,7 @@ struct CSTrackBuilder: BuilderProtocol {
         
         for i in 1..<audioTime.count {
             var track = CSTrack(trackNum: i, trackType: "AUDIO", index: [CSIndex](), rem: CSRem(), meta: CSMeta())
-            if let t = tracks.index(of: Int(i)) {
+            if let tmp = tracks.index(of: Int(i)), let t = tmp {
                 track = t
             }
             let trackIndex: [CSIndex]

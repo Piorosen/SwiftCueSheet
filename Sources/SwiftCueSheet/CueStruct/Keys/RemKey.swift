@@ -36,6 +36,11 @@ public enum CSRemKey: Hashable, CaseNamable {
     case others(_ key: String)
     
     public var caseName:String {
-        String(describing: self)
+        switch self {
+        case .others(let key):
+            return key
+        default:
+            return String(describing: self)
+        }
     }
 }

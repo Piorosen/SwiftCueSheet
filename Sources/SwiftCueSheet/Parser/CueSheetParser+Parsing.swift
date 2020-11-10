@@ -168,7 +168,7 @@ extension CueSheetParser {
         guard let fileType = fileInfo.last else {
             throw CSError.file(text: file)
         }
-        let fileName = fileInfo[1..<(fileInfo.endIndex - 1)].joined(separator: " ")
+        let fileName = fileInfo[1..<(fileInfo.endIndex - 1)].joined(separator: " ").trimmingCharacters(in: ["\"", "\'"])
         
         var trackList = [CSTrack]()
         
