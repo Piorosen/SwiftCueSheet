@@ -16,7 +16,7 @@ extension Array where Element == CSIndex {
         }
         
         for i in rhs.indices {
-//            if rhs[i].indexNum != lhs[i].indexNum ||
+            //            if rhs[i].indexNum != lhs[i].indexNum ||
             if rhs[i].indexTime.frames != lhs[i].indexTime.frames {
                 return false
             }
@@ -71,6 +71,87 @@ final class TrackEditTests: XCTestCase {
     
     
     
+    func testInsert1Track() {
+        guard let p = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
+                .makeTrack(0, time: CSLengthOfAudio(startTime: 0, duration: 200))
+                .calcTime() else {
+            XCTFail()
+            return
+        }
+        
+        if p.count != 5 {
+            XCTFail()
+            return
+        }
+        
+        let validation = [CSLengthOfAudio(startTime: 0, duration: 200, interval: 0),
+                          CSLengthOfAudio(startTime: 0, duration: 291.653, interval: -200),
+                          CSLengthOfAudio(startTime: 294.253, duration: 176.56, interval: 2.6),
+                          CSLengthOfAudio(startTime: 475.413, duration: 289.44, interval: 4.6),
+                          CSLengthOfAudio(startTime: 767.453, duration: -767.453, interval: 2.6)]
+        
+        if validation != p {
+            XCTFail()
+        }
+    }
+    
+    func testInsert2Track() {
+        guard let p = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
+                .makeTrack(0, time: CSLengthOfAudio(startTime: 5, duration: 200))
+                .calcTime()
+                 else {
+            XCTFail()
+            return
+        }
+        
+        print(p)
+
+        if p.count != 5 {
+            XCTFail()
+            return
+        }
+
+        let validation = [CSLengthOfAudio(startTime: 5, duration: 200, interval: 5),
+                          CSLengthOfAudio(startTime: 0, duration: 291.653, interval: -205),
+                          CSLengthOfAudio(startTime: 294.253, duration: 176.56, interval: 2.6),
+                          CSLengthOfAudio(startTime: 475.413, duration: 289.44, interval: 4.6),
+                          CSLengthOfAudio(startTime: 767.453, duration: -767.453, interval: 2.6)]
+
+        if validation != p {
+            XCTFail()
+        }
+    }
+    
+    func testInsert3Track() {
+        guard let p = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
+                .makeTrack(0, time: CSLengthOfAudio(startTime: 0, duration: 200))
+                .makeTrack(0, time: CSLengthOfAudio(startTime: 3, duration: 200))
+                .makeTrack(0, time: CSLengthOfAudio(startTime: 5, duration: 200))
+                .calcTime() else {
+            XCTFail()
+            return
+        }
+        print(p)
+        if p.count != 7 {
+            XCTFail()
+            return
+        }
+        
+        let validation = [CSLengthOfAudio(startTime: 5, duration: 200, interval: 5),
+                          CSLengthOfAudio(startTime: 3, duration: 200, interval: -202),
+                          CSLengthOfAudio(startTime: 0, duration: 200, interval: -203),
+                          CSLengthOfAudio(startTime: 0, duration: 291.653, interval: -200),
+                          CSLengthOfAudio(startTime: 294.253, duration: 176.56, interval: 2.6),
+                          CSLengthOfAudio(startTime: 475.413, duration: 289.44, interval: 4.6),
+                          CSLengthOfAudio(startTime: 767.453, duration: -767.453, interval: 2.6)]
+        
+        if validation != p {
+            XCTFail()
+        }
+    }
+    
+    
+    
     func testAddTrack() {
         let t = CSTrackBuilder().setAudioTime(data: [CSLengthOfAudio(startTime: 60, duration: 30), CSLengthOfAudio(startTime: 120, duration: 50)]).build()
         
@@ -83,7 +164,6 @@ final class TrackEditTests: XCTestCase {
         if check != validate {
             XCTFail("결과가 다릅니다")
         }
-        
     }
     
     func testRemakeTrack() {
@@ -108,8 +188,8 @@ final class TrackEditTests: XCTestCase {
         }
         
         let buildTest = CSTrackBuilder().setAudioTime(data: sheet.calcTime())
-                                        .setTrackData(data: sheet.file.tracks)
-                                        .build()
+            .setTrackData(data: sheet.file.tracks)
+            .build()
         
         if buildTest.count != sheet.file.tracks.count {
             XCTFail()
@@ -141,6 +221,9 @@ final class TrackEditTests: XCTestCase {
         ("testAddTrack", testAddTrack),
         ("testRemakeTrack", testRemakeTrack),
         ("testOriginTrack", testOriginTrack),
+        ("testInsert1Track", testInsert1Track),
+        ("testInsert2Track", testInsert2Track),
+        ("testInsert3Track", testInsert3Track),
     ]
 }
 
