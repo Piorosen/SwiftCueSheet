@@ -9,7 +9,7 @@ import Foundation
 
 
 public struct CSTrack {
-    init(trackNum:Int = 0, trackType: String = "", index: [CSIndex], rem:CSRem = CSRem(), meta:CSMeta = CSMeta()){
+    public init(trackNum:Int = 0, trackType: String = "", index: [CSIndex], rem:CSRem = CSRem(), meta:CSMeta = CSMeta()){
         self.trackNum = trackNum
         self.trackType = trackType
         self.index = index

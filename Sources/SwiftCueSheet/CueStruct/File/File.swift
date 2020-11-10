@@ -8,7 +8,7 @@
 import Foundation
 
 public struct CSFile {
-    init(tracks: [CSTrack], fileName: String, fileType: String) {
+    public init(tracks: [CSTrack], fileName: String, fileType: String) {
         self.tracks = tracks
         self.fileName = fileName
         self.fileType = fileType
