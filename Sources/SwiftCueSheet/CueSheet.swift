@@ -16,11 +16,10 @@ public struct CueSheet {
     }
     
     #if canImport(AVFoundation)
-    internal var ownAudioLength:Double = 0
+    var ownAudioLength:Double = 0
     public mutating func getInfoOfAudio(music: URL) throws -> CSAudio {
         let infoOfMusic = AVAsset(url: music)
-        let file = try? AVAudioFile(forReading: music)
-        guard let d = file else {
+        guard let d = try? AVAudioFile(forReading: music) else {
             throw CSError.expireUrl(url: music)
         }
         
