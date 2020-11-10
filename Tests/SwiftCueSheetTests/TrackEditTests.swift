@@ -69,15 +69,13 @@ final class TrackEditTests: XCTestCase {
         super.tearDown()
     }
     
-    
-    
     func testInsert1Track() {
-        guard let p = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
-                .makeTrack(0, time: CSLengthOfAudio(startTime: 0, duration: 200))
-                .calcTime() else {
+        guard var sheet = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue) else {
             XCTFail()
             return
         }
+        sheet.makeTrack(0, time: CSLengthOfAudio(startTime: 0, duration: 200))
+        let p = sheet.calcTime()
         
         if p.count != 5 {
             XCTFail()
@@ -96,13 +94,12 @@ final class TrackEditTests: XCTestCase {
     }
     
     func testInsert2Track() {
-        guard let p = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
-                .makeTrack(0, time: CSLengthOfAudio(startTime: 5, duration: 200))
-                .calcTime()
-                 else {
+        guard var sheet = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue) else {
             XCTFail()
             return
         }
+        sheet.makeTrack(0, time: CSLengthOfAudio(startTime: 5, duration: 200))
+        let p = sheet.calcTime()
         
         print(p)
 
@@ -123,14 +120,16 @@ final class TrackEditTests: XCTestCase {
     }
     
     func testInsert3Track() {
-        guard let p = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue)
-                .makeTrack(0, time: CSLengthOfAudio(startTime: 0, duration: 200))
-                .makeTrack(0, time: CSLengthOfAudio(startTime: 3, duration: 200))
-                .makeTrack(0, time: CSLengthOfAudio(startTime: 5, duration: 200))
-                .calcTime() else {
+        guard var sheet = try? CueSheetParser().load(data: Resources.MYTH_and_ROID_cue) else {
             XCTFail()
             return
         }
+        
+        sheet.makeTrack(0, time: CSLengthOfAudio(startTime: 0, duration: 200))
+        sheet.makeTrack(0, time: CSLengthOfAudio(startTime: 3, duration: 200))
+        sheet.makeTrack(0, time: CSLengthOfAudio(startTime: 5, duration: 200))
+        let p = sheet.calcTime()
+        
         print(p)
         if p.count != 7 {
             XCTFail()
