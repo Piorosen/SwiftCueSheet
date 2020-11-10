@@ -35,7 +35,12 @@ extension CueSheet {
         
         for index in self.file.tracks.indices {
             if let sf = file.tracks[index].index.first, let sl = file.tracks[index].index.last {
-                let frontInterval = sl.indexTime.totalSeconds - sf.indexTime.totalSeconds
+                let frontInterval: Double
+                if index == 0 {
+                    frontInterval = sl.indexTime.totalSeconds
+                }else {
+                    frontInterval = sl.indexTime.totalSeconds - sf.indexTime.totalSeconds
+                }
                 calcStartTime += frontInterval
                 
                 let startTime = calcStartTime
