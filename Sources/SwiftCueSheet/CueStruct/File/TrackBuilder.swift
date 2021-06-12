@@ -55,20 +55,21 @@ struct CSTrackBuilder: BuilderProtocol {
             
             track.index = [CSIndex(num: 0, time: makeIndex[0])]
             makeTracks.append(track)
+            
+            for i in 1..<audioTime.count {
+                var track = CSTrack(trackNum: i, trackType: "AUDIO", index: [CSIndex](), rem: CSRem(), meta: CSMeta())
+                if let tmp = tracks.index(of: Int(i)), let t = tmp {
+                    track = t
+                }
+                let trackIndex: [CSIndex]
+                
+                trackIndex = [CSIndex(num: 0, time: makeIndex[i * 2 - 1]), CSIndex(num: 1, time: makeIndex[i * 2])]
+                
+                track.index = trackIndex
+                makeTracks.append(track)
+            }
         }
         
-        for i in 1..<audioTime.count {
-            var track = CSTrack(trackNum: i, trackType: "AUDIO", index: [CSIndex](), rem: CSRem(), meta: CSMeta())
-            if let tmp = tracks.index(of: Int(i)), let t = tmp {
-                track = t
-            }
-            let trackIndex: [CSIndex]
-            
-            trackIndex = [CSIndex(num: 0, time: makeIndex[i * 2 - 1]), CSIndex(num: 1, time: makeIndex[i * 2])]
-            
-            track.index = trackIndex
-            makeTracks.append(track)
-        }
         return makeTracks
     }
 }
