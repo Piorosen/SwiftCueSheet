@@ -14,9 +14,9 @@ extension CueSheet {
         let item = save()
         
         if let _ = (try? item.write(to: url, atomically: true, encoding: .utf8)) {
-            return false
+            return true
         }
-        return true
+        return false
         
     }
     public func save() -> String {
